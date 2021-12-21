@@ -1,0 +1,19 @@
+{
+  "name": "backend_website",
+  "version": "1.0.0",
+  "description": "Dies hier ist das Backend für unsere Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benni0501/Gartenhilfe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Benni0501/Gartenhilfe/issues"
+  },
+  "homepage": "https://github.com/Benni0501/Gartenhilfe#readme"
+}
