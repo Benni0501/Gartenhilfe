@@ -14,5 +14,11 @@ app.get("/", (req,res) => {
     console.log("Get");
    // res.end();
 })
+
+app.post("/writeSomething", (req,res) => {
+    console.log(req.body.textToWrite);
+    res.status(200);
+    res.end();
+})
 console.log("Trying to start server");
 app.listen(3001, () => console.log("server started successfully"));

@@ -1,8 +1,33 @@
 <html>
     <head>
         <title>Test</title>
+        <script>
+            function test(){
+                console.log("test");
+            var text = document.getElementById("text");
+            console.log(text.value);
+            var myHeaders = new Headers();
+            //myHeaders.append("Content-Type", "application/json");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("textToWrite", text.value);
+
+            var requestOptions = {
+                method: 'POST',
+                mode: 'cors',
+                headers: myHeaders,
+                body: urlencoded,
+                //redirect: 'follow'
+            };
+
+            fetch("http://127.0.0.1:3001/writeSomething", requestOptions)
+                .then(response => response.text())
+                .catch(error => console.log('error', error));
+        }
+        </script>
     </head>
     <body>
-        Test
+        <input type="text" id="text">
+        <button onclick="test()">Test</button>
     </body>
 </html>
