@@ -1,33 +1,53 @@
 <html>
     <head>
         <title>Test</title>
+        <!--Import von Jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            function test(){
-                console.log("test");
-            var text = document.getElementById("text");
-            console.log(text.value);
-            var myHeaders = new Headers();
-            //myHeaders.append("Content-Type", "application/json");
+            // Funktion für POST-Request
+            function test(testVal){
+                var url = "http://localhost:3001/writeSomething";
 
-            var urlencoded = new URLSearchParams();
-            urlencoded.append("textToWrite", text.value);
+                var xhr = new XMLHttpRequest();
+                // HTTP-Request Method, url
+                xhr.open("POST", url);
 
-            var requestOptions = {
-                method: 'POST',
-                mode: 'cors',
-                headers: myHeaders,
-                body: urlencoded,
-                //redirect: 'follow'
-            };
-
-            fetch("http://127.0.0.1:3001/writeSomething", requestOptions)
-                .then(response => response.text())
-                .catch(error => console.log('error', error));
+                xhr.setRequestHeader("Content-Type", "application/json");
+                // keine Ahnung
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                }};
+                // Die Variable die gesendet wird
+                var data = {
+                    "textToWrite": testVal
+                };
+                // DEBUG
+                console.log(testVal);
+                // macht JSON zu einem String
+                data = JSON.stringify(data);
+                // sendet das umgewandelte JSON
+                xhr.send(data);
+        }
+        // Fuktion um etwas abzurufen (eventuell onload bzw. alle paar sekunden aufrufen)
+        function buttonTwo(){
+            console.log("DEBUG");
+            // GET-Request senden mit Jquery
+            $.get("http://localhost:3001/getSomething", function(data){
+                let test = document.getElementById("headingOne");
+                test.innerHTML = data;
+            })
         }
         </script>
     </head>
-    <body>
-        <input type="text" id="text">
-        <button onclick="test()">Test</button>
+    <body onload="buttonTwo()">
+        <!--Button um den DEBUG-Counter zu erhöhen-->
+        <button onclick="test('ButtonOne')" id="buttonOne">Button One</button>
+        <!--Button um den DEUBG-Counter abzurufen-->
+        <button id="buttonTwo" onclick="buttonTwo()">Button Two</button>
+        <br>
+        <!--Heading um etwas anzuzeigen-->
+        <h1 id="headingOne"></h1>
     </body>
 </html>
