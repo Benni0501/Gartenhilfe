@@ -4,6 +4,10 @@
         <!--Import von Jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
+            setInterval(function() { 
+                // alle 3 Sekunden ausführen 
+                buttonTwo(); 
+            }, 1000);
             // Funktion für POST-Request
             function test(testVal){
                 var url = "http://localhost:3001/writeSomething";
@@ -50,4 +54,3 @@
         <!--Heading um etwas anzuzeigen-->
         <h1 id="headingOne"></h1>
     </body>
-</html>

@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 //Test-Counter
 var counter = 0;
 
+
 /*const client = mqtt.connect(connectUrl , {
     clientId,
     clean: true,
