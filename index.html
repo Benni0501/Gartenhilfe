@@ -4,45 +4,62 @@
         <!--Import von Jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            /*setInterval(function() { 
-                // alle 3 Sekunden ausführen 
-                buttonTwo(); 
-            }, 1000);*/
+            setInterval(function() { 
+                // alle 1 Sekunden ausführen 
+                getSwitchStatus(); 
+            }, 100);
+
             // Funktion für POST-Request
-            function test(testVal){
-                var url = "http://127.0.0.1:3001/writeSomething";
+            function sendSwitchStatus(button){
+                var url = "http://127.0.0.1:3001/setProperty";
                 var data = {
-                    "textToWrite": testVal
+                    "value": button.checked,
+                    "id": button.id
                 };
+                console.log(button.checked,button.id);
                 $.ajax(url, {
                     data: JSON.stringify(data),
                     contentType: "application/json",
                     type: "POST"
-                })
-                // Die Variable die gesendet wird
+                }).done(function(data, statusText, xhr) {
+                if(xhr.status == 200){
+                    console.log("Post Request suceeded");
+                } else {
+                    document.getElementById("headingOne").innerHTML = "Something went wrong check console output for details";
+                }
                 
-                // DEBUG
+            })
                 
         }
         // Fuktion um etwas abzurufen (eventuell onload bzw. alle paar sekunden aufrufen)
-        function buttonTwo(){
-            console.log("DEBUG");
+        function getSwitchStatus(){
+            //console.log("DEBUG");
             // GET-Request senden mit Jquery
-            $.get("http://127.0.0.1:3001/getSomething", function(data){
-                let test = document.getElementById("headingOne");
-                //console.log(typeof data)
-                test.innerHTML = data;
-            }).done(function() {
-                console.log("Get Request suceeded");
+            $.get("http://127.0.0.1:3001/getButtons", function(data){
+                try{
+                    var res = JSON.parse(data);
+                } catch(err){
+                    console.log("Error");
+                }
+                //console.log(res.id);
+                let button = document.getElementById(res.id);
+                button.checked = res.value;
+            }).done(function(data, statusText, xhr) {
+                if(xhr.status == 200){
+                    console.log("Get Request suceeded");
+                    //console.log(data);
+                } else {
+                    console.log(data);
+                    document.getElementById("headingOne").innerHTML = "Something went wrong check console output for details";
+                }
+                
             })
         }
         </script>
     </head>
-    <body onload="buttonTwo()">
-        <!--Button um den DEBUG-Counter zu erhöhen-->
-        <button onclick="test('ButtonOne')" id="buttonOne">Button One</button>
-        <!--Button um den DEUBG-Counter abzurufen-->
-        <button id="buttonTwo" onclick="buttonTwo()">Button Two</button>
+    <body onload="getSwitchStatus()">
+        <input type="checkbox" id="buttonOne" onclick="sendSwitchStatus(this)">
+        <label for="buttonOne">ButtonOne</label>
         <br>
         <!--Heading um etwas anzuzeigen-->
         <h1 id="headingOne"></h1>
