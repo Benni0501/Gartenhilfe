@@ -11,7 +11,7 @@ const connectUrl = 'mqtt://broker.hivemq.com:1883'
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 //Test-Counter
 var counter = 0;
@@ -43,7 +43,7 @@ client.on('connect', () => {
 app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname,'index.html'));
     console.log("Get");
-   // res.end();
+    res.end();
 })
 
 // mögliche Ansteuerung von Website per POST-Request
@@ -53,12 +53,16 @@ app.post("/writeSomething", (req,res) => {
     counter++;
     console.log(counter);
     // gibt den Status-Code 200 zurück
-    res.status(200);
+    res.status = 200;
+    res.end();
 })
 
 // Senden eines Werts von Backend zu Frontend
 app.get("/getSomething", (req,res) => {
     res.send(counter.toString());
+    console.log("Get");
+    res.statusCode = 200;
+    res.end();
 })
 console.log("Trying to start server");
 // Server Start

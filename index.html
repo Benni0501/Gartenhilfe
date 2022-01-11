@@ -4,43 +4,36 @@
         <!--Import von Jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            setInterval(function() { 
+            /*setInterval(function() { 
                 // alle 3 Sekunden ausführen 
                 buttonTwo(); 
-            }, 1000);
+            }, 1000);*/
             // Funktion für POST-Request
             function test(testVal){
-                var url = "http://localhost:3001/writeSomething";
-
-                var xhr = new XMLHttpRequest();
-                // HTTP-Request Method, url
-                xhr.open("POST", url);
-
-                xhr.setRequestHeader("Content-Type", "application/json");
-                // keine Ahnung
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        console.log(xhr.status);
-                        console.log(xhr.responseText);
-                }};
-                // Die Variable die gesendet wird
+                var url = "http://127.0.0.1:3001/writeSomething";
                 var data = {
                     "textToWrite": testVal
                 };
+                $.ajax(url, {
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    type: "POST"
+                })
+                // Die Variable die gesendet wird
+                
                 // DEBUG
-                console.log(testVal);
-                // macht JSON zu einem String
-                data = JSON.stringify(data);
-                // sendet das umgewandelte JSON
-                xhr.send(data);
+                
         }
         // Fuktion um etwas abzurufen (eventuell onload bzw. alle paar sekunden aufrufen)
         function buttonTwo(){
             console.log("DEBUG");
             // GET-Request senden mit Jquery
-            $.get("http://localhost:3001/getSomething", function(data){
+            $.get("http://127.0.0.1:3001/getSomething", function(data){
                 let test = document.getElementById("headingOne");
+                //console.log(typeof data)
                 test.innerHTML = data;
+            }).done(function() {
+                console.log("Get Request suceeded");
             })
         }
         </script>
