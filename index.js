@@ -15,21 +15,26 @@ app.use(express.urlencoded({ extended: false }));
 //Test-Counter
 var counter = 0;
 
-
+// MQTT-Client
 const client = mqtt.connect(connectUrl , {
     clientId,
     clean: true,
     connectTimeout: 4000,
     reconnectPeriod: 1000
 })
+// Topic zum subscriben
 const topicOne = "webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF"
+// OnClientConnect
 client.on('connect', () => {
     console.log("Connected");
+    // Topic Subscribe
     client.subscribe([topicOne], () => {
         console.log("Subscribed")
     })
+    // Subscribe Listender
     client.on('message', (topic, payload) => {
         if(topic == topicOne){
+            // Variable ändern --> später Datenbank
             value = (payload.toString() === "true");
             console.log("Received: ",topic,payload.toString());
         }
@@ -44,12 +49,14 @@ app.get("/", (req,res) => {
     res.end();
 })
 
-// mögliche Ansteuerung von Website per POST-Request
+// Ansteuerung von Frontend per POST-Request
 app.post("/setProperty", (req,res) => {
-    let reqJSON = JSON.parse(req);
-
+    console.log(req.body);
+    // Check if Client is connected
     if(client.connected){
-        client.publish("webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF/set", reqJSON.value, { qos: 2, retain: false }, (error) => {
+        // wenn ja dann wird das value vom frontend zu webthings gesendet
+        // später Datenbankanbindung hier
+        client.publish("webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF/set", req.body.value.toString(), { qos: 2, retain: false }, (error) => {
             if (error) {
               console.error(error)
             } else {
@@ -59,17 +66,18 @@ app.post("/setProperty", (req,res) => {
         res.status = 200;
         res.end();
     } else {
+        // wenn nein dann error zurückgeben
         res.status = 504;
         res.end();
     }
-    // gibt den Status-Code 200 zurück
-    
 })
 
 // Senden eines Werts von Backend zu Frontend
 app.get("/getButtons", (req,res) => {
     if(client.connected){
+        // JSON Objekt
         let resJSON = {
+            // später ID-System
             "id":"buttonOne",
             "value":value
         }
