@@ -5,7 +5,8 @@ const app = express();
 const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
-const connectUrl = 'mqtt://192.168.43.129:1883'
+const connectUrl = 'mqtt://gateway.local:1883'
+var value = false;
 
 app.use(cors());
 app.use(express.json());
@@ -14,29 +15,31 @@ app.use(express.urlencoded({ extended: false }));
 //Test-Counter
 var counter = 0;
 
-
+// MQTT-Client
 const client = mqtt.connect(connectUrl , {
     clientId,
     clean: true,
     connectTimeout: 4000,
     reconnectPeriod: 1000
 })
-const topic = "webthings/aa3cc4d8-3d99-49f6-875f-6deb8ea7c2f5/actions/on"
+// Topic zum subscriben
+const topicOne = "webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF"
+// OnClientConnect
 client.on('connect', () => {
     console.log("Connected");
-    client.subscribe([topic], () => {
+    // Topic Subscribe
+    client.subscribe([topicOne], () => {
         console.log("Subscribed")
     })
+    // Subscribe Listender
     client.on('message', (topic, payload) => {
-        console.log('Received Message:', topic, payload.toString())
-      })
-    client.publish("webthings/aa3cc4d8-3d99-49f6-875f-6deb8ea7c2f5/properties/on/set", "true", { qos: 2, retain: false }, (error) => {
-        if (error) {
-          console.error(error)
-        } else {
-            console.log("Sent");
+        if(topic == topicOne){
+            // Variable ändern --> später Datenbank
+            value = (payload.toString() === "true");
+            console.log("Received: ",topic,payload.toString());
         }
-    })
+      })
+    
 })
 
 // Root-Verzeichnis für Website --> vielleicht auf Apache übertragen
@@ -46,23 +49,47 @@ app.get("/", (req,res) => {
     res.end();
 })
 
-// mögliche Ansteuerung von Website per POST-Request
-app.post("/writeSomething", (req,res) => {
-    // gibt den Body aus
+// Ansteuerung von Frontend per POST-Request
+app.post("/setProperty", (req,res) => {
     console.log(req.body);
-    counter++;
-    console.log(counter);
-    // gibt den Status-Code 200 zurück
-    res.status = 200;
-    res.end();
+    // Check if Client is connected
+    if(client.connected){
+        // wenn ja dann wird das value vom frontend zu webthings gesendet
+        // später Datenbankanbindung hier
+        client.publish("webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF/set", req.body.value.toString(), { qos: 2, retain: false }, (error) => {
+            if (error) {
+              console.error(error)
+            } else {
+                console.log("Sent");
+            }
+        })
+        res.status = 200;
+        res.end();
+    } else {
+        // wenn nein dann error zurückgeben
+        res.status = 504;
+        res.end();
+    }
 })
 
 // Senden eines Werts von Backend zu Frontend
-app.get("/getSomething", (req,res) => {
-    res.send(counter.toString());
-    console.log("Get");
-    res.statusCode = 200;
-    res.end();
+app.get("/getButtons", (req,res) => {
+    if(client.connected){
+        // JSON Objekt
+        let resJSON = {
+            // später ID-System
+            "id":"buttonOne",
+            "value":value
+        }
+        res.send(JSON.stringify(resJSON));
+        res.statusCode = 200;
+        res.end();
+    } else {
+        res.statusCode = 503;
+        res.send("MQTT Server unreachable!")
+        res.end();
+    }
+    
 })
 console.log("Trying to start server");
 // Server Start
