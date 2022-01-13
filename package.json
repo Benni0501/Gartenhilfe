@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Benni0501/Gartenhilfe#readme",
   "dependencies": {
     "body-parser": "^1.19.1",
+    "core-util-is": "^1.0.3",
     "cors": "^2.8.5",
     "debug": "^4.3.3",
     "express": "^4.17.2",
@@ -26,9 +27,10 @@
     "iconv-lite": "^0.6.3",
     "json": "^11.0.0",
     "mqtt": "^4.3.4",
+    "mysql": "^2.18.1",
     "path": "^0.12.7",
     "raw-body": "^2.4.2",
-    "stream": "0.0.2",
-    "wss": "^3.3.4"
+    "sqlstring": "^2.3.2",
+    "stream": "0.0.2"
   }
 }

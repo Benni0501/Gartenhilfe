@@ -6,11 +6,23 @@ const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://gateway.local:1883'
+const mysql = require('mysql');
 var value = false;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+var con = mysql.createConnection({
+    host: "gateway.local",
+    user: "user",
+    password: "benni0501"
+})
+
+con.connect(function(err) {
+    if(err) throw err;
+    console.log("Connected to MySQL Database!");
+})
 
 //Test-Counter
 var counter = 0;
