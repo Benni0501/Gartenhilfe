@@ -12,13 +12,10 @@ Wir verwenden derzeitig zwei HTTP-Requests:
 - POST:
   - wird verwendet um Daten zum Backend zu senden
 
-<<<<<<< HEAD
 Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br>
 Deswegen sendet das Frontend alle 100 Millisekunden eine GET-Request an das Backend.<br>
-=======
 Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br><br>
 Deswegen sendet das Frontend alle 100 Millisekunden eine GET-Request an das Backend.<br><br>
->>>>>>> 374ac8cff63f2a8a541ab6fd3d3b6e2941500b94
 Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
 ```json
 {
