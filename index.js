@@ -6,23 +6,28 @@ const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://gateway.local:1883'
-const mysql = require('mysql');
+const mysql = require('mysql2');
 var value = false;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-var con = mysql.createConnection({
+var pool = mysql.createPool({
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
     host: "gateway.local",
     user: "user",
-    password: "benni0501"
-})
+    password: "benni0501",
+    database: "webthings"
+});
 
-con.connect(function(err) {
-    if(err) throw err;
-    console.log("Connected to MySQL Database!");
-})
+pool.query('SELECT 1 + 1 FROM dual', function(error,results, fields){
+    if(error) throw error;
+    console.log("TEST ", results);
+});
+
 
 //Test-Counter
 var counter = 0;
