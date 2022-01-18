@@ -12,8 +12,9 @@ Wir verwenden derzeitig zwei HTTP-Requests:
 - POST:
   - wird verwendet um Daten zum Backend zu senden
 
-Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br>
-Deswegen sendet das Frontend alle 100 Millisekunden eine GET-Request an das Backend.<br>
+Um dies zu machen benutzen wir serverseitig Express.js.
+> Die REST-API wird möglicherweise durch einen Websocket ausgetauscht im späteren Verlauf.
+
 Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br><br>
 Deswegen sendet das Frontend alle 100 Millisekunden eine GET-Request an das Backend.<br><br>
 Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
