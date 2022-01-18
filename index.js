@@ -12,7 +12,7 @@ var value = false;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+/*
 var pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
@@ -27,7 +27,7 @@ pool.query('SELECT 1 + 1 FROM dual', function(error,results, fields){
     if(error) throw error;
     console.log("TEST ", results);
 });
-
+*/
 
 //Test-Counter
 var counter = 0;
