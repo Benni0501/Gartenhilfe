@@ -5,32 +5,30 @@ const app = express();
 const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
-const connectUrl = 'mqtt://gateway.local:1883'
+const connectUrl = 'mqtt://192.168.43.129:1883'
 const mysql = require('mysql2');
 var value = false;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-/*
+
 var pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    host: "gateway.local",
-    user: "user",
+    host: "192.168.43.129",
+    user: "nodejs",
     password: "benni0501",
     database: "webthings"
 });
 
-pool.query('SELECT 1 + 1 FROM dual', function(error,results, fields){
-    if(error) throw error;
-    console.log("TEST ", results);
-});
-*/
+
+
 
 //Test-Counter
 var counter = 0;
+var resJSON = {};
 
 // MQTT-Client
 const client = mqtt.connect(connectUrl , {
@@ -73,6 +71,15 @@ app.post("/setProperty", (req,res) => {
     if(client.connected){
         // wenn ja dann wird das value vom frontend zu webthings gesendet
         // später Datenbankanbindung hier
+        var topic1;
+        pool.getConnection(function(err,conn){
+            conn.query('SELECT webthings_id FROM webthings WHERE id = ?',req.body.id, function(error,results, fields){
+                if(error) throw error;
+                console.log("TEST GET", results);
+                topic1 = "webthings/" + results[0].webthings_id +"/properties/ON_OFF/set"
+            });
+            pool.releaseConnection(conn);
+        });
         client.publish("webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF/set", req.body.value.toString(), { qos: 2, retain: false }, (error) => {
             if (error) {
               console.error(error)
@@ -93,11 +100,15 @@ app.post("/setProperty", (req,res) => {
 app.get("/getButtons", (req,res) => {
     if(client.connected){
         // JSON Objekt
-        let resJSON = {
-            // später ID-System
-            "id":"buttonOne",
-            "value":value
-        }
+        pool.getConnection(function(err,conn){
+            conn.query('SELECT id,value FROM webthings', function(error,results, fields){
+                if(error) throw error;
+                console.log("TEST ", results);
+                resJSON = results;
+            });
+            pool.releaseConnection(conn);
+        });
+        console.log(resJSON);
         res.send(JSON.stringify(resJSON));
         res.statusCode = 200;
         res.end();
@@ -106,7 +117,6 @@ app.get("/getButtons", (req,res) => {
         res.send("MQTT Server unreachable!")
         res.end();
     }
-    
 })
 console.log("Trying to start server");
 // Server Start

@@ -40,12 +40,16 @@
                 try{
                     // JSON Objeckt parsen
                     var res = JSON.parse(data);
+                    //console.log(data);
                 } catch(err){
                     console.log("Error");
                 }
-                let button = document.getElementById(res.id);
-                // Button auf das bekommene value setzen
-                button.checked = res.value;
+                //console.log(res[0]);
+                for(var i = 0; i < res.length; i++){
+                    console.log(res[i]);
+                    let object = document.getElementById(res[i].id);
+                    object.checked = res[i].value == "true";
+                }
             }).fail(function(data, xhr){
                 // wenn etwas failed error ausgeben
                 console.log(xhr);
