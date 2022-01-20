@@ -7,7 +7,6 @@ const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://192.168.43.129:1883'
 const mysql = require('mysql2');
-var value = false;
 
 app.use(cors());
 app.use(express.json());
@@ -23,9 +22,6 @@ var pool = mysql.createPool({
     database: "webthings"
 });
 
-
-
-
 //Test-Counter
 var counter = 0;
 var resJSON = {};
@@ -38,21 +34,28 @@ const client = mqtt.connect(connectUrl , {
     reconnectPeriod: 1000
 })
 // Topic zum subscriben
-const topicOne = "webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF"
+//const topicOne = "webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF"
 // OnClientConnect
 client.on('connect', () => {
     console.log("Connected");
     // Topic Subscribe
-    client.subscribe([topicOne], () => {
+    client.subscribe("webthings/#", () => {
         console.log("Subscribed")
     })
     // Subscribe Listender
     client.on('message', (topic, payload) => {
-        if(topic == topicOne){
-            // Variable ändern --> später Datenbank
-            value = (payload.toString() === "true");
-            console.log("Received: ",topic,payload.toString());
-        }
+        // Variable ändern --> später Datenbank
+        console.log("Received: ",topic,payload.toString());
+        topic = topic.substring(10);
+        console.log(topic);
+        pool.getConnection(function(err,conn){
+            conn.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
+                if(error) throw error;
+                //console.log("TEST ", results);
+                
+            });
+            pool.releaseConnection(conn);
+        });
       })
     
 })
@@ -76,11 +79,15 @@ app.post("/setProperty", (req,res) => {
             conn.query('SELECT webthings_id FROM webthings WHERE id = ?',req.body.id, function(error,results, fields){
                 if(error) throw error;
                 console.log("TEST GET", results);
-                topic1 = "webthings/" + results[0].webthings_id +"/properties/ON_OFF/set"
+                topic1 = "webthings/" + results[0].webthings_id +"/properties/ON_OFF/set";
+                console.log("TEST topic" + topic1);
+            });
+            conn.query('UPDATE webthings SET value=? WHERE id=?',[req.body.value.toString(),req.body.id], function(error,results,fields){
+                if(error) throw error;
             });
             pool.releaseConnection(conn);
         });
-        client.publish("webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF/set", req.body.value.toString(), { qos: 2, retain: false }, (error) => {
+        client.publish(topic1, req.body.value.toString(), { qos: 2, retain: false }, (error) => {
             if (error) {
               console.error(error)
             } else {
@@ -103,12 +110,12 @@ app.get("/getButtons", (req,res) => {
         pool.getConnection(function(err,conn){
             conn.query('SELECT id,value FROM webthings', function(error,results, fields){
                 if(error) throw error;
-                console.log("TEST ", results);
+                //console.log("TEST ", results);
                 resJSON = results;
             });
             pool.releaseConnection(conn);
         });
-        console.log(resJSON);
+        //console.log(resJSON);
         res.send(JSON.stringify(resJSON));
         res.statusCode = 200;
         res.end();
