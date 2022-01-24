@@ -79,7 +79,7 @@ app.post("/setProperty", (req,res) => {
             conn.query('SELECT webthings_id FROM webthings WHERE id = ?',req.body.id, function(error,results, fields){
                 if(error) throw error;
                 console.log("TEST GET", results);
-                topic1 = "webthings/" + results[0].webthings_id +"/properties/ON_OFF/set";
+                topic1 = "webthings/" + results[0].webthings_id;
                 console.log("TEST topic" + topic1);
             });
             conn.query('UPDATE webthings SET value=? WHERE id=?',[req.body.value.toString(),req.body.id], function(error,results,fields){
@@ -87,9 +87,12 @@ app.post("/setProperty", (req,res) => {
             });
             pool.releaseConnection(conn);
         });
-        client.publish(topic1, req.body.value.toString(), { qos: 2, retain: false }, (error) => {
+        
+        var payload = String(req.body.value);
+        console.log(payload + " " + typeof payload);
+        client.publish(topic1, payload, { qos: 2, retain: false }, (error) => {
             if (error) {
-              console.error(error)
+              console.error(error);
             } else {
                 console.log("Sent");
             }
@@ -108,7 +111,7 @@ app.get("/getButtons", (req,res) => {
     if(client.connected){
         // JSON Objekt
         pool.getConnection(function(err,conn){
-            conn.query('SELECT id,value FROM webthings', function(error,results, fields){
+            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
                 if(error) throw error;
                 //console.log("TEST ", results);
                 resJSON = results;

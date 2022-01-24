@@ -47,11 +47,11 @@
                 //console.log(res[0]);
                 for(var i = 0; i < res.length; i++){
                     console.log(res[i]);
-                    let object = document.getElementById(res[i].id);
+                    var object = document.getElementById(res[i].id);
                     if(res[i].value == "true" || res[i].value == "false"){
                         object.checked = res[i].value == "true";
                     } else {
-                        object.innerHTML = res[i].value;
+                        object.innerHTML = res[i].value + " " + res[i].unit;
                     }
                     
                 }
@@ -71,7 +71,8 @@
         <input type="checkbox" id="buttonOne" onclick="sendSwitchStatus(this)">
         <label for="buttonOne">ButtonOne</label>
         <br>
-        <h3 id="valueOne"></h3>
+        <h3 id="lightSensor"></h3>
+        <h4 id="valueOne"></h4>
         <br>
         <!--Heading um etwas anzuzeigen-->
         <h1 id="headingOne"></h1>
