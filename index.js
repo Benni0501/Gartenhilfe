@@ -6,16 +6,14 @@ const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://192.168.43.129:1883'
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 var pool = mysql.createPool({
-    waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
     host: "192.168.43.129",
     user: "nodejs",
     password: "benni0501",
@@ -23,8 +21,8 @@ var pool = mysql.createPool({
 });
 
 //Test-Counter
-var counter = 0;
 var resJSON = {};
+var topic1;
 
 // MQTT-Client
 const client = mqtt.connect(connectUrl , {
@@ -47,14 +45,14 @@ client.on('connect', () => {
         // Variable ändern --> später Datenbank
         console.log("Received: ",topic,payload.toString());
         topic = topic.substring(10);
-        console.log(topic);
+        //console.log(topic);
         pool.getConnection(function(err,conn){
             conn.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
                 if(error) throw error;
                 //console.log("TEST ", results);
-                
+                pool.releaseConnection(conn);
             });
-            pool.releaseConnection(conn);
+            
         });
       })
     
@@ -72,31 +70,35 @@ app.post("/setProperty", (req,res) => {
     console.log(req.body);
     // Check if Client is connected
     if(client.connected){
+        var test = false;
         // wenn ja dann wird das value vom frontend zu webthings gesendet
         // später Datenbankanbindung hier
-        var topic1;
+        
         pool.getConnection(function(err,conn){
             conn.query('SELECT webthings_id FROM webthings WHERE id = ?',req.body.id, function(error,results, fields){
                 if(error) throw error;
-                console.log("TEST GET", results);
+                //console.log("TEST GET", results);
                 topic1 = "webthings/" + results[0].webthings_id;
-                console.log("TEST topic" + topic1);
+                console.log("MQTT TEST topic: " + topic1 + "PAYLOAD: " + req.body.value.toString());
+                client.publish(topic1, req.body.value.toString(), { qos: 2, retain: false }, (error) => {
+                    if (error) {
+                    console.error(error);
+                    } else {
+                        console.log("Sent");
+                    }
+                });
             });
+                
             conn.query('UPDATE webthings SET value=? WHERE id=?',[req.body.value.toString(),req.body.id], function(error,results,fields){
                 if(error) throw error;
+                pool.releaseConnection(conn);
             });
-            pool.releaseConnection(conn);
+            
         });
+
+            
         
-        var payload = String(req.body.value);
-        console.log(payload + " " + typeof payload);
-        client.publish(topic1, payload, { qos: 2, retain: false }, (error) => {
-            if (error) {
-              console.error(error);
-            } else {
-                console.log("Sent");
-            }
-        })
+            
         res.status = 200;
         res.end();
     } else {
