@@ -12,7 +12,8 @@ Wir verwenden derzeitig zwei HTTP-Requests:
 - POST:
   - wird verwendet um Daten zum Backend zu senden
 
-Um dies zu machen benutzen wir serverseitig Express.js.
+Um dies zu machen benutzen wir serverseitig Express.js.<br>
+Die Daten werden auf einer MariaDB Datenbak gespeichert.<br>
 > Die REST-API wird möglicherweise durch einen Websocket ausgetauscht im späteren Verlauf.
 
 Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br><br>
