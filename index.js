@@ -55,7 +55,6 @@ client.on('connect', () => {
             
         });
       })
-    
 })
 
 // Root-Verzeichnis für Website --> vielleicht auf Apache übertragen
@@ -71,9 +70,7 @@ app.post("/setProperty", (req,res) => {
     // Check if Client is connected
     if(client.connected){
         var test = false;
-        // wenn ja dann wird das value vom frontend zu webthings gesendet
-        // später Datenbankanbindung hier
-        
+        // wenn ja dann wird das value vom frontend zu webthings gesendet    
         pool.getConnection(function(err,conn){
             conn.query('SELECT webthings_id FROM webthings WHERE id = ?',req.body.id, function(error,results, fields){
                 if(error) throw error;
@@ -87,18 +84,13 @@ app.post("/setProperty", (req,res) => {
                         console.log("Sent");
                     }
                 });
-            });
-                
+            }); 
             conn.query('UPDATE webthings SET value=? WHERE id=?',[req.body.value.toString(),req.body.id], function(error,results,fields){
                 if(error) throw error;
                 pool.releaseConnection(conn);
             });
             
         });
-
-            
-        
-            
         res.status = 200;
         res.end();
     } else {
