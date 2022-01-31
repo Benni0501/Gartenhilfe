@@ -1,82 +1,247 @@
 <html>
-    <head>
-        <title>Test</title>
-        <!--Import von Jquery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            setInterval(function() { 
-                // alle 100 Millisekunden Status vom Server abrufen
-                getStatus(); 
-            }, 100);
 
-            // Funktion für POST-Request
-            function sendStatus(button){
-                var url = "http://127.0.0.1:3001/setProperty";
-                // JSON Objekt
-                var data = {
-                    "value": button.checked,
-                    "id": button.id
-                };
-                console.log(button.checked,button.id);
-                // POST-Request
-                $.ajax(url, {
-                    data: JSON.stringify(data),
-                    contentType: "application/json",
-                    type: "POST"
-                }).fail(function(data, xhr){
-                    // wenn etwas failed error ausgeben
-                    console.log(xhr);
-                    document.getElementById("headingOne").innerHTML = "Something went wrong check console output for details";
-                }).done(function(){
-                    // sonst alles gut
-                    document.getElementById("headingOne").innerHTML = "";
-                })
-                
+<head>
+    <title>Gartenhilfe</title>
+
+    <script src="https://code.highcharts.com/highcharts.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+        * {
+            padding: 0;
+
         }
-        // Funktion um per GET-Request alle Sachen vom Backend holen
-        function getStatus(){
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background: rgb(54, 54, 54);
+            min-height: 90vh;
+            max-height: 100%;
+        }
+
+
+        .container {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+        }
+
+        .container .card {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container .card .content {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0.5;
+            transition: 0.5s;
+        }
+
+        .container .card:hover .content {
+            opacity: 1;
+        }
+
+        .container .card .content .diagram {
+            font-family: 'Roboto', sans-serif;
+            z-index: 51;
+            position: relative;
+            align-content: center;
+            width: 300px;
+            height: 150px;
+
+            overflow: hidden;
+            /* border: 10px solid rgba(0, 0, 0, 0.25);
+        */
+        }
+
+
+        .container .card .content .contentBx h3 {
+            font-family: 'Roboto', sans-serif;
+            color: whitesmoke;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-size: 18px;
+            text-align: center;
+            margin: 20px 0 10px;
+            line-height: 1.1em;
+        }
+
+        .container .card .content .contentBx h3 span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            text-transform: initial;
+
+        }
+    </style>
+
+<script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+
+<body>
+    <div class="test"></div>
+    <div class="container">
+        <div class="card">
+            <div class="content">
+                <div class="diagram" id="diagram">
+
+                </div>
+                <div id="infoText" class="contentBx">
+                    <h3>Helligkeit<br><span>Lumen</span></h3>
+                    <h3 id="lightValueOut">-</h3>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+    </div>
+    <script>
+        var lightValue = 0;
+        updateDiagram();
+        setInterval(function () {
+            // alle 100 Millisekunden Status vom Server abrufen
+            getStatus();
+        }, 100);
+
+
+        function getStatus() {
+
             // GET-Request senden mit Jquery
-            $.get("http://127.0.0.1:3001/getButtons", function(data){
-                try{
+            $.get("http://gateway.local:3001/getButtons", function (data) {
+                try {
                     // JSON Objeckt parsen
                     var res = JSON.parse(data);
                     //console.log(data);
-                } catch(err){
+                } catch (err) {
                     console.log("Error");
                 }
                 //console.log(res[0]);
                 // durch alle Objekte iterieren
-                for(var i = 0; i < res.length; i++){
+                for (var i = 0; i < res.length; i++) {
                     console.log(res[i]);
                     var object = document.getElementById(res[i].id);
                     // testen ob es ein true/false value hat
-                    if(res[i].value == "true" || res[i].value == "false"){
-                        object.checked = res[i].value == "true";
-                    } else {
-                        object.innerHTML = res[i].value + " " + res[i].unit;
+
+                    console.log(res[i]);
+
+                    if (res[i].id == "lightSensor") {
+
+                        lightValue = res[i].value;
+                        console.log(lightValue);
+                        var lightValueOut = document.getElementById("lightValueOut");
+                        lightValueOut.value = lightValue;
+                        updateDiagram();
                     }
-                    
+
+
                 }
-            }).fail(function(data, xhr){
+            }).fail(function (data, xhr) {
                 // wenn etwas failed error ausgeben
-                console.log(xhr);
-                document.getElementById("headingOne").innerHTML = "Something went wrong check console output for details";
-            }).done(function(){
+                console.log("Fail: " + xhr);
+                //document.getElementById("headingOne").innerHTML = "Something went wrong check console output for details";
+            }).done(function () {
                 // sonst alles gut
-                document.getElementById("headingOne").innerHTML = "";
+                //document.getElementById("headingOne").innerHTML = "";
+                console.log("done");
             })
         }
-        </script>
-    </head>
-    <body onload="getStatus()">
-        <!--Button Input übergibt der Funktion den Button mit this-->
-        <input type="checkbox" id="buttonOne" onclick="sendStatus(this)">
-        <label for="buttonOne">ButtonOne</label>
-        <br>
-        <h3 id="lightSensor"></h3>
-        <h4 id="valueOne"></h4>
-        <br>
-        <!--Heading um etwas anzuzeigen-->
-        <h1 id="headingOne"></h1>
-    </body>
-    <!--Der Bereich indem der value gesetzt wird muss die jeweilige id haben!-->
+
+
+
+        // value von 0 - 4000
+        var lightMaxValue = 4100;
+        var percentageLight = 100 * (lightMaxValue / lightValue);
+        var lightDiagramData;
+
+        function updateDiagram() {
+         
+         //Diagramm Licht
+            lightDiagramData = [
+                {
+                    name: 'Lumen',
+                    y: percentageLight,
+                    color: "whitesmoke",
+                    dataLabels: {
+                        enabled: false
+                    }
+                },
+                {
+                    name: '',
+                    y: 100 - percentageLight,
+                    color: "transparent",
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ];
+            Highcharts.chart('diagram', {
+                chart: {
+                    backgroundColor: 'transparent',
+                    enableMouseTracking: false,
+                    plotBorderWidth: 0,
+                    height: "180px"
+                },
+                tooltip: {
+                    enabled: false,
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                },
+                title: { text: null },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        enableMouseTracking: false,
+                        dataLabels: {
+                            allowPointSelect: false,
+                            enabled: false,
+
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '70%'],
+                        size: "150%"
+                    }
+                },
+                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: lightDiagramData }]
+            });
+                //Diagram moisty mire
+
+
+
+        }
+
+
+    </script>
+<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6d6247b8cae577ef',m:'gPm6_V5rlXPbMyOoaQS5F8IXzorQLHA5LExQnTuyIIQ-1643625189-0-AfMHXAV1tmeeABPgs233697LY9FGlJxTWWvEANqeYGNe2xTa6sXU/4ZK8KF1R6cqx1zF5sTYN7bGuutsjHSDe9H6zgZkG94UlQDF4MUlAKHUZ6e9lAgwnMq69QyoyvJ1IPfusBh8rEqFemhuq7J77yBQJGGkWYGCf0eoqDy7Nmxzr+iT6so+XT+Wa4ooJFt0bQ==',s:[0x7a1dd9ce3e,0x661941dea9],}})();</script></body>
+
+</html>
