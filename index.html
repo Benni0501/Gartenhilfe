@@ -6,7 +6,7 @@
         <script>
             setInterval(function() { 
                 // alle 100 Millisekunden Status vom Server abrufen
-                getSwitchStatus(); 
+                getStatus(); 
             }, 100);
 
             // Funktion für POST-Request
@@ -68,9 +68,9 @@
         }
         </script>
     </head>
-    <body onload="getSwitchStatus()">
+    <body onload="getStatus()">
         <!--Button Input übergibt der Funktion den Button mit this-->
-        <input type="checkbox" id="buttonOne" onclick="sendSwitchStatus(this)">
+        <input type="checkbox" id="buttonOne" onclick="sendStatus(this)">
         <label for="buttonOne">ButtonOne</label>
         <br>
         <h3 id="lightSensor"></h3>

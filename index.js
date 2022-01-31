@@ -61,7 +61,6 @@ client.on('connect', () => {
 app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname,'index.html'));
     console.log("Get");
-    res.end();
 })
 
 // Ansteuerung von Frontend per POST-Request
