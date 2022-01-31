@@ -10,7 +10,7 @@
             }, 100);
 
             // Funktion für POST-Request
-            function sendSwitchStatus(button){
+            function sendStatus(button){
                 var url = "http://127.0.0.1:3001/setProperty";
                 // JSON Objekt
                 var data = {
@@ -33,8 +33,8 @@
                 })
                 
         }
-        // Funktion um per GET-Request etwas vom Backend abzurufen
-        function getSwitchStatus(){
+        // Funktion um per GET-Request alle Sachen vom Backend holen
+        function getStatus(){
             // GET-Request senden mit Jquery
             $.get("http://127.0.0.1:3001/getButtons", function(data){
                 try{
@@ -45,9 +45,11 @@
                     console.log("Error");
                 }
                 //console.log(res[0]);
+                // durch alle Objekte iterieren
                 for(var i = 0; i < res.length; i++){
                     console.log(res[i]);
                     var object = document.getElementById(res[i].id);
+                    // testen ob es ein true/false value hat
                     if(res[i].value == "true" || res[i].value == "false"){
                         object.checked = res[i].value == "true";
                     } else {
@@ -77,3 +79,4 @@
         <!--Heading um etwas anzuzeigen-->
         <h1 id="headingOne"></h1>
     </body>
+    <!--Der Bereich indem der value gesetzt wird muss die jeweilige id haben!-->
