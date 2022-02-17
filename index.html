@@ -197,7 +197,7 @@
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Helligkeit<br><span>Lumen</span></h3>
+                            <h3>Helligkeit<br><span id="lightUnit">Lumen</span></h3>
                             <h3 id="lightValueOut">-</h3>
                         </div>
 
@@ -211,7 +211,7 @@
                         </div>
                         <div id="infoText" class="contentBx">
                             <h3>Feuchtigkeit<br><span>%</span></h3>
-                            <h3 id="lightValueOut">-</h3>
+                            <h3 id="moistyValueOut">-</h3>
                         </div>
 
                     </div>
@@ -235,10 +235,11 @@
         var lightDiagramData;
 
         var moistyValue = 0;
-        var moistyMaxValue = 4100;
+        var moistyMaxValue = 100;
         var percentageMoisty;
         var moistyDiagramData;
-
+        
+	getStatus();
         updateDiagram();
         setInterval(function () {
             getStatus();
@@ -258,8 +259,13 @@
                     if (res[i].id == "lightSensor") {
                         lightValue = res[i].value;
                         document.getElementById("lightValueOut").innerHTML = lightValue;
+			document.getElementById("lightUnit").innerHTML = res[i].unit;
                         updateDiagram();
-                    }
+                    } else if(res[i].id == "moistureSensor"){
+			moistyValue = res[i].value;
+			document.getElementById("moistyValueOut").innerHTML = moistyValue;
+			console.log("Moisty " + res[i].value); 
+		    }
                 }
             }).fail(function (data, xhr) {
                 console.log("Fail: " + xhr);
