@@ -5,7 +5,7 @@ const app = express();
 const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
-const connectUrl = 'mqtt://192.168.43.129:1883'
+const connectUrl = 'mqtt://127.0.0.1:1883'
 const mysql = require('mysql');
 
 app.use(cors());
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 var pool = mysql.createPool({
     connectionLimit: 10,
-    host: "192.168.43.129",
+    host: "127.0.0.1",
     user: "nodejs",
     password: "benni0501",
     database: "webthings"
