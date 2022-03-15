@@ -38,7 +38,7 @@ const client = mqtt.connect(connectUrl , {
 })
 
 wss.on("connection", (ws) => {
-    ws.send("Hello World!");
+    //ws.send("Hello World!");
     clients.push(ws);
     var returnValue = {}
         pool.getConnection(function(err,conn){
@@ -46,10 +46,12 @@ wss.on("connection", (ws) => {
                 if(error) throw error;
                 //console.log("TEST ", results);
                 returnValue = results;
+                //console.log(returnValue)
+             	ws.send(JSON.stringify(returnValue));
+            	pool.releaseConnection(conn);
             });
-            pool.releaseConnection(conn);
         });
-    ws.send(returnValue.stringify());
+    
 });
 
 wss.on("close", (ws) =>{
@@ -91,11 +93,12 @@ client.on('connect', () => {
                 //console.log("TEST ", results);
                 returnValue = results;
             });
+            clients.forEach((con)=>{
+                con.send(JSON.stringify(returnValue));
+            });
             pool.releaseConnection(conn);
         });
-        clients.forEach((con)=>{
-            con.send(returnValue.stringify());
-        });
+
       })
 })
 
