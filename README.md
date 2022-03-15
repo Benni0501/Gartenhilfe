@@ -5,19 +5,11 @@ Dies hier ist das Backend für unsere Website
 - index.html &rarr; Beispiel für Frontend
 
 ## Erklärung
-Frontend und Backend kommunizieren mithilfe der <a href="https://www.cloudcomputing-insider.de/was-ist-eine-rest-api-a-611116/">REST-API</a><br>
-Wir verwenden derzeitig zwei HTTP-Requests:
-- GET:
-  - wird verwendet um Daten vom Backend zu holen
-- POST:
-  - wird verwendet um Daten zum Backend zu senden
+Frontend und Backend kommunizieren mithilfe eines Websockets
 
 Um dies zu machen benutzen wir serverseitig Express.js.<br>
 Die Daten werden auf einer MariaDB Datenbak gespeichert.<br>
-> Die REST-API wird möglicherweise durch einen Websocket ausgetauscht im späteren Verlauf.
 
-Da das Backend von sich aus keine Daten zum Frontend schicken kann muss das Frontend die Daten anfordern.<br><br>
-Deswegen sendet das Frontend alle 100 Millisekunden eine GET-Request an das Backend.<br><br>
 Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
 ```json
 {
