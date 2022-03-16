@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 const http = require("http");
 const ws = require("ws")
-const path = require('path');
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://127.0.0.1:1883'
@@ -13,10 +12,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Server erstellen und WebSocket zuweisen
 const server = http.createServer(app);
 const wss = new ws.Server({server});
-var clients = [];
 
+// MySQL-Pool erstellen
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: "127.0.0.1",
@@ -24,10 +24,6 @@ var pool = mysql.createPool({
     password: "benni0501",
     database: "webthings"
 });
-
-//Test-Counter
-var resJSON = {};
-var topic1;
 
 // MQTT-Client
 const client = mqtt.connect(connectUrl , {
@@ -37,66 +33,51 @@ const client = mqtt.connect(connectUrl , {
     reconnectPeriod: 1000
 })
 
+// On WebSocket Connection
 wss.on("connection", (ws) => {
-    //ws.send("Hello World!");
-    clients.push(ws);
-    var returnValue = {}
-        pool.getConnection(function(err,conn){
-            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
-                if(error) throw error;
-                //console.log("TEST ", results);
-                returnValue = results;
-                //console.log(returnValue)
-             	ws.send(JSON.stringify(returnValue));
-            	pool.releaseConnection(conn);
-            });
+    console.log("Connection opened")
+    pool.getConnection(function(err,conn){
+        conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+            if(error) throw error;
+            ws.send(JSON.stringify(results));
         });
+        conn.release();
+    });
     
 });
 
+// On WebSocket Close
 wss.on("close", (ws) =>{
-    clients.forEach((con) =>{
-        if(con == ws){
-            clients.splice(clients.indexOf(con), 1);
-        }
-    });
+    console.log("Connection closed");
 });
 
-
-// Topic zum subscriben
-//const topicOne = "webthings/virtual-things-custom-737dafd5-989e-485a-a204-9ed623041207/properties/ON_OFF"
-// OnClientConnect
+// On MQTT Connect
 client.on('connect', () => {
-    console.log("Connected");
+    console.log("Connected to MQTT");
     // Topic Subscribe
     client.subscribe("webthings/#", () => {
         console.log("Subscribed")
     })
     // Subscribe Listender
     client.on('message', (topic, payload) => {
-        // Variable ändern --> später Datenbank
         console.log("Received: ",topic,payload.toString());
         topic = topic.substring(10);
         //console.log(topic);
-        pool.getConnection(function(err,conn){
-            conn.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
-                if(err) throw err;
-                //console.log("TEST ", results);
-                pool.releaseConnection(conn);
-            });
-            
+        pool.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
+            if(error) throw error;
+            //console.log("TEST ", results);
         });
-        var returnValue = {}
+        
+        // Get Data from Database and send it to the clients
         pool.getConnection(function(err,conn){
             conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
                 if(error) throw error;
                 //console.log("TEST ", results);
-                returnValue = results;
+                wss.clients.forEach((con)=>{
+                    con.send(JSON.stringify(results));
+                });
             });
-            clients.forEach((con)=>{
-                con.send(JSON.stringify(returnValue));
-            });
-            pool.releaseConnection(conn);
+            conn.release();
         });
 
       })
