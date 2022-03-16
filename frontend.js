@@ -13,45 +13,31 @@
         var percentageTemperature;
         var temperatureDiagramData;
         
-	getStatus();
-        updateDiagram();
-        setInterval(function () {
-            getStatus();
-        }, 100);
+        const socket = new WebSocket("ws://gateway.local:3001");
 
-        function getStatus() {
+        socket.onmessage = (event)=>{
+            var res = JSON.parse(event.data);
 
-            $.get("http://gateway.local:3001/getButtons", function (data) {
-                try {
-                    var res = JSON.parse(data);
-                } catch (err) {
-                    console.log("Error");
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].id == "lightSensor") {
+                    lightValue = res[i].value;
+                    document.getElementById("lightValueOut").innerHTML = lightValue;
+                    document.getElementById("lightUnit").innerHTML = res[i].unit;
+                    updateDiagram();
+                } else if(res[i].id == "moistureSensor"){
+                    moistyValue = res[i].value;
+                    document.getElementById("moistyValueOut").innerHTML = moistyValue;
+                    document.getElementById("moistyUnit").innerHTML = res[i].unit;
+                    updateDiagram();
+                    //console.log("Moisty " + res[i].value); 
+                } else if(res[i].id == "temperatureSensor"){
+                    temperatureValue = res[i].value
+                    document.getElementById("temperatureValueOut").innerHTML = temperatureValue;
+                    document.getElementById("temperatureUnit").innerHTML = res[i].unit;
+                    updateDiagram();
                 }
-                for (var i = 0; i < res.length; i++) {
-                    var object = document.getElementById(res[i].id);
-
-                    if (res[i].id == "lightSensor") {
-                        lightValue = res[i].value;
-                        document.getElementById("lightValueOut").innerHTML = lightValue;
-			document.getElementById("lightUnit").innerHTML = res[i].unit;
-                        updateDiagram();
-                    } else if(res[i].id == "moistureSensor"){
-			moistyValue = res[i].value;
-			document.getElementById("moistyValueOut").innerHTML = moistyValue;
-			document.getElementById("moistyUnit").innerHTML = res[i].unit;
-			//console.log("Moisty " + res[i].value); 
-		    } else if(res[i].id == "temperatureSensor"){
-		    	temperatureValue = res[i].value
-		        document.getElementById("temperatureValueOut").innerHTML = temperatureValue;
-			document.getElementById("temperatureUnit").innerHTML = res[i].unit;
-		    }
-                }
-            }).fail(function (data, xhr) {
-                console.log("Fail: " + xhr);
-            }).done(function () {
-                console.log("done");
-            })
-        }
+            }
+        };
 
         function updateDiagram() {
             percentageLight = 100 * (lightValue / lightMaxValue);
