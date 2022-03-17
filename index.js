@@ -4,11 +4,11 @@ const app = express();
 const http = require("http");
 const ws = require("ws")
 const mqtt = require('mqtt');
-const clientId = 'mqtt_123'
+const clientId = 'mqtt_123' + Math.random()*5;
 const connectUrl = 'mqtt://127.0.0.1:1883'
 const mysql = require('mysql');
 const MySQLEvents = require("@rodrigogs/mysql-events");
-
+console.log(clientId);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,14 +33,23 @@ const instance = new MySQLEvents(pool, {
     },
 });
 
-await instance.start();
+instance.start();
 
 instance.addTrigger({
     name: 'TEST',
     expression: '*',
     statement: MySQLEvents.STATEMENTS.ALL,
     onEvent: (event) => { // You will receive the events here
-      console.log(event);
+	pool.getConnection(function(err,conn){
+            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+                if(error) throw error;
+                //console.log("TEST ", results);
+                wss.clients.forEach((con)=>{
+                    con.send(JSON.stringify(results));
+                });
+            });
+            conn.release();
+        });
     },
   });
 
