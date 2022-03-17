@@ -7,6 +7,7 @@ const mqtt = require('mqtt');
 const clientId = 'mqtt_123'
 const connectUrl = 'mqtt://127.0.0.1:1883'
 const mysql = require('mysql');
+const MySQLEvents = require("@rodrigogs/mysql-events");
 
 app.use(cors());
 app.use(express.json());
@@ -24,6 +25,24 @@ var pool = mysql.createPool({
     password: "benni0501",
     database: "webthings"
 });
+
+const instance = new MySQLEvents(pool, {
+    startAtEnd: true,
+    excludedSchemas: {
+      mysql: true,
+    },
+});
+
+await instance.start();
+
+instance.addTrigger({
+    name: 'TEST',
+    expression: '*',
+    statement: MySQLEvents.STATEMENTS.ALL,
+    onEvent: (event) => { // You will receive the events here
+      console.log(event);
+    },
+  });
 
 // MQTT-Client
 const client = mqtt.connect(connectUrl , {

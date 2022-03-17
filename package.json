@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Benni0501/Gartenhilfe#readme",
   "dependencies": {
+    "@rodrigogs/mysql-events": "^0.6.0",
     "body-parser": "^1.19.1",
     "core-util-is": "^1.0.3",
     "cors": "^2.8.5",
