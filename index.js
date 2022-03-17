@@ -85,4 +85,4 @@ client.on('connect', () => {
 
 console.log("Trying to start server");
 // Server Start
-server.listen(3002, () => console.log("server started successfully"));
+server.listen(3001, () => console.log("server started successfully"));

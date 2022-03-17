@@ -13,7 +13,7 @@
         var percentageTemperature;
         var temperatureDiagramData;
         
-        const socket = new WebSocket("ws://gateway.local:3001");
+        const socket = new WebSocket("ws://178.190.238.126:3001");
 
         socket.onmessage = (event)=>{
             var res = JSON.parse(event.data);
