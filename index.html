@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./frontend.js" async></script>
     <link rel="stylesheet" href="style.css">
+    <script src="frontend.js" async></script>
 </head>
 
 
@@ -18,15 +18,20 @@
 
     <div id="mySidenav" class="sidenav">
         <p class="logo">Gartenhilfe</p>
-        <a href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
-                class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
-        <a href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+        <ul style="list-style: none">
+            <li> <a href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
+                        class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
+            </li>
+            <li> <a href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+            </li>
+
+        </ul>
     </div>
     <div id="main">
 
         <div class="head">
             <div class="col-div-6">
-                <span style="font-size:30px;cursor:pointer; color: white;" class="nav">Sensoren</span>
+                <span style="font-size:40px;cursor:pointer; text-align: center; color: white;" class="nav">Sensoren</span>
             </div>
 
         </div>
@@ -39,50 +44,45 @@
         <div class="col-div-10">
 
             <div class="container">
-                <div class="card">
+                <div class="card" id="card1">
                     <div class="content">
                         <div class="diagram" id="lightDiagram">
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Helligkeit<br><span id="lightUnit">Lumen</span></h3>
+                            <h3>Helligkeit<br><span>Lux</span></h3>
                             <h3 id="lightValueOut">-</h3>
                         </div>
 
                     </div>
 
                 </div>
-                <div class="card">
+                <div class="card" id="card2">
                     <div class="content">
                         <div class="diagram" id="moistyDiagram">
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Feuchtigkeit<br><span id="moistyUnit">%</span></h3>
+                            <h3>Feuchtigkeit<br><span>%</span></h3>
                             <h3 id="moistyValueOut">-</h3>
                         </div>
 
                     </div>
 
-
-
                 </div>
-                <div class="card">
+                <div class="card" id="card3">
                     <div class="content">
-                        <div class="diagram" id="temperatureDiagram">
+                        <div class="diagram" id="tempDiagram">
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Temperatur<br><span id="temperatureUnit">%</span></h3>
-                            <h3 id="temperatureValueOut">-</h3>
+                            <h3>Temperatur<br><span>Celsius</span></h3>
+                            <h3 id="tempvalueOut">-</h3>
                         </div>
 
                     </div>
 
-
-
                 </div>
-
             </div>
 
         </div>

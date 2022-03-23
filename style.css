@@ -11,10 +11,19 @@
             margin: 0px;
             padding: 0px;
             background: rgb(54, 54, 54);
-            overflow: hidden;
-
+            overflow-y: scroll;
             font-family: system-ui;
+
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
 
 
         .container {
@@ -28,6 +37,7 @@
 
 
         }
+
 
 
         .container .card {
@@ -104,29 +114,9 @@
             font-weight: bold;
             color: white;
             margin-bottom: 30px;
+            font-size: 36px;
         }
 
-        .sidenav {
-            height: 100%;
-            width: 300px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background: #23272A;
-            overflow: hidden;
-            transition: 0.5s;
-            padding-top: 30px;
-        }
-
-        .sidenav a {
-            padding: 15px 8px 15px 32px;
-            text-decoration: none;
-            font-size: 20px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
 
 
         .sidenav a:hover {
@@ -134,19 +124,260 @@
             background-color: #2f3136;
         }
 
-        .sidenav {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-        }
+
 
         #main {
             transition: margin-left .5s;
             padding: 16px;
             margin-left: 300px;
+
+
+
         }
+
+
 
         .head {
             padding: 20px;
-        }   
+        }
+
+        @media screen and (min-width: 1608) {
+            body {
+                overflow: hidden;
+
+            }
+        }
+
+
+
+
+
+
+        @media screen and (min-width: 750px) and (min-device-width: 750px) {
+
+            .sidenav {
+                position: fixed;
+                height: 100%;
+                width: 300px;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background: #23272A;
+                overflow: hidden;
+                transition: 0.5s;
+                padding-top: 30px;
+                position: fixed;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+            }
+
+            .sidenav a {
+                padding: 15px 8px 15px 32px;
+                text-decoration: none;
+                font-size: 20px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+            .sidenav {
+                height: 100%;
+                width: 300px;
+
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background: #23272A;
+                overflow: hidden;
+                transition: 0.5s;
+                padding-top: 30px;
+                right: 25px;
+                font-size: 36px;
+            }
+
+            .sidenav a {
+
+                display: block;
+                padding: 15px 8px 15px 32px;
+
+            }
+
+        }
+
+
+        @media screen and (max-width: 750px) {
+
+            .container .card {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+            .col-div-6 {
+                width: 100%;
+                float: left;
+            }
+
+            .box-4 {
+                /*width: 95%;*/
+                width: 85%;
+                margin-top: 50px;
+                margin-left: 50px;
+                background: #23272A;
+                height: 366.666px;
+                padding: 10px;
+            }
+
+            .box1 {
+                margin-top: 50px;
+            }
+
+            .box2 {
+                margin-top: 50px;
+            }
+
+            .box3 {
+                margin-top: 50px;
+            }
+
+            #main {
+
+                margin-left: 0px;
+            }
+
+            .sidenav {
+                background-color: #23272A;
+                font-size: 36px;
+            }
+
+            .sidenav a {
+                align-content: center;
+                padding-left: 13vw;
+                padding-right: 13vw;
+
+
+            }
+
+
+            .logo {
+
+                text-align: center;
+
+            }
+
+            .sidenav {
+                overflow: hidden;
+                background: #23272A;
+            }
+
+            .sidenav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                text-decoration: none;
+                font-size: 17px;
+                width: 24vw;
+            }
+
+
+
+            .head {
+
+                text-align: center;
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @media screen and (max-device-width: 750px) {
+            #main {
+
+                margin-left: 0px;
+            }
+
+            .col-div-6 {
+                width: 100%;
+                float: left;
+            }
+
+            .box-4 {
+                /*width: 95%;*/
+                width: 85%;
+                margin-top: 50px;
+                margin-left: 50px;
+                background: #23272A;
+                height: 366.666px;
+                padding: 10px;
+            }
+
+            .box1 {
+                margin-top: 50px;
+            }
+
+            .box2 {
+                margin-top: 50px;
+            }
+
+            .box3 {
+                margin-top: 50px;
+            }
+
+
+            .logo {
+
+                text-align: center;
+
+            }
+
+            .sidenav a {
+                align-content: center;
+                padding-left: 13vw;
+                padding-right: 13vw;
+
+
+            }
+
+            .sidenav {
+                overflow: hidden;
+                background: #23272A;
+            }
+
+            .sidenav a {
+                background-color: #23272A;
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                text-decoration: none;
+                font-size: 17px;
+                width: 24vw;
+            }
+
+
+
+            .head {
+
+                text-align: center;
+
+            }
+
+        }

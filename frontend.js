@@ -2,38 +2,41 @@
         var lightMaxValue = 4095;
         var percentageLight;
         var lightDiagramData;
-
+	
         var moistyValue = 0;
         var moistyMaxValue = 100;
         var percentageMoisty;
         var moistyDiagramData;
-
+	var tempValue;
 	    var temperatureValue = -10;
         var temperatureMaxValue = 50;
         var percentageTemperature;
         var temperatureDiagramData;
-        
-        const socket = new WebSocket("ws://178.190.238.126:3001");
+	//console.log("Test");        
+        const socket = new WebSocket("wss://suppanschitz.com:3001");
+	updateDiagram();        
 
         socket.onmessage = (event)=>{
             var res = JSON.parse(event.data);
-
+	    //console.log(res);
             for (var i = 0; i < res.length; i++) {
                 if (res[i].id == "lightSensor") {
                     lightValue = res[i].value;
                     document.getElementById("lightValueOut").innerHTML = lightValue;
-                    document.getElementById("lightUnit").innerHTML = res[i].unit;
+                    //document.getElementById("lightUnit").innerHTML = res[i].unit;
                     updateDiagram();
                 } else if(res[i].id == "moistureSensor"){
                     moistyValue = res[i].value;
+		    //console.log("Moisty: " + moistyValue);
                     document.getElementById("moistyValueOut").innerHTML = moistyValue;
-                    document.getElementById("moistyUnit").innerHTML = res[i].unit;
+                    //document.getElementById("moistyUnit").innerHTML = res[i].unit;
                     updateDiagram();
                     //console.log("Moisty " + res[i].value); 
                 } else if(res[i].id == "temperatureSensor"){
-                    temperatureValue = res[i].value
-                    document.getElementById("temperatureValueOut").innerHTML = temperatureValue;
-                    document.getElementById("temperatureUnit").innerHTML = res[i].unit;
+                    temperatureValue = res[i].value;
+		    temperatureValue = Math.round(temperatureValue);
+                    document.getElementById("tempvalueOut").innerHTML = temperatureValue;
+                    //document.getElementById("temperatureUnit").innerHTML = res[i].unit;
                     updateDiagram();
                 }
             }
@@ -61,7 +64,7 @@
                     dataLabels: {
                         enabled: false
                     }
-            	}
+                }
             ];
             Highcharts.chart('lightDiagram', {
                 chart: {
@@ -99,7 +102,7 @@
 
             //Diagram moisty mire
             percentageMoisty = 100 * (moistyValue / moistyMaxValue);
-
+            //percentageMoisty = 80;
             moistyDiagramData = [
                 {
                     name: 'Lumen',
@@ -151,13 +154,12 @@
                 series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: moistyDiagramData }]
             });
 
-		//Diagram temperature
-            percentageTemperature = 100 * (temperatureValue / temperatureMaxValue);
-            console.log(percentageTemperature);
+            //Diagramm Temperatur
+            var percentageTemperature = 100 * (temperatureValue / temperatureMaxValue);
 
-            temperatureDiagramData = [
+            tempDiagramData = [
                 {
-                    name: 'C°',
+                    name: 'Lumen',
                     y: percentageTemperature,
                     color: "whitesmoke",
                     dataLabels: {
@@ -173,7 +175,7 @@
                     }
                 }
             ];
-            Highcharts.chart('temperatureDiagram', {
+            Highcharts.chart('tempDiagram', {
                 chart: {
                     backgroundColor: 'transparent',
                     enableMouseTracking: false,
@@ -203,9 +205,26 @@
                         size: "150%"
                     }
                 },
-                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: temperatureDiagramData }]
+                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: tempDiagramData }]
             });
 
 
+        }
+        function deleteEmtyCards() {
+            console.log(lightValue);
+            console.log(moistyValue);
+            console.log(tempValue);
+            if (lightValue == null) {
+
+                document.getElementById("card1").remove();
+
+            } if (moistyValue == null) {
+
+                document.getElementById("card2").remove();
+
+            } if (tempValue == null) {
+                document.getElementById("card3").remove();
+
+            }
         }
 
