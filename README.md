@@ -1,8 +1,13 @@
 # Gartenhilfe
 ## Backend_Website
 Dies hier ist das Backend für unsere Website
-- index.js &rarr; Hauptdatei
-- index.html &rarr; Beispiel für Frontend
+- index.js &rarr; Server
+- index.html &rarr; HTML für Sensor-Frontend
+- frontend.js &rarr; JS für Sensor-Frontend
+- styles.css &rarr; CSS für Sensor-Frontend
+- Weather.html &rarr; HTML für Weather-Frontend
+- weather_js.js &rarr; JS für Weather-Frontend
+- styles_weather.css &rarr; CSS für Weather-Frontend
 
 ## Erklärung
 Frontend und Backend kommunizieren mithilfe eines Websockets
@@ -13,8 +18,8 @@ Die Daten werden auf einer MariaDB Datenbak gespeichert.<br>
 Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
 ```json
 {
-  "value": <value>,
-  "id": <id-des-auslösers>
+  "tipps":<gartentipps>,
+  "sensors":<sensor-daten>
 }
 ```
 <br>
