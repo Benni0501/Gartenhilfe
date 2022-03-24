@@ -38,6 +38,40 @@ const instance = new MySQLEvents(pool, {
     },
 });
 
+function sendDataToClient(){
+	var sensors = {};
+	var tipps = {};
+	pool.getConnection(function(err,conn){
+            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+                if(error) throw error;
+		sensors = results;
+	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
+		     if(error) throw error;
+                     tipps = results;
+                     var retVal = {"tipps":tipps, "sensors":sensors};
+            	     wss.clients.forEach((con)=>{
+                         con.send(JSON.stringify(retVal));
+                     });
+	        });
+	    });
+            conn.release();
+        });
+}
+
+function sendSensorDataToClient(){
+	pool.getConnection(function(err,conn){
+            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+                if(error) throw error;
+                //console.log("TEST ", results);
+		var retVal = {"tipps":null,"sensors":results};
+                wss.clients.forEach((con)=>{
+                    con.send(JSON.stringify(retVal));
+                });
+            });
+            conn.release();
+        });
+}
+
 instance.start();
 
 instance.addTrigger({
@@ -45,18 +79,7 @@ instance.addTrigger({
     expression: '*',
     statement: MySQLEvents.STATEMENTS.ALL,
     onEvent: (event) => { // You will receive the events here
-	pool.getConnection(function(err,conn){
-            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
-                if(error) throw error;
-                //console.log("TEST ", results);
-                wss.clients.forEach((con)=>{
-                    retVal = {"sensors": results};
-                    console.log(retVal);
-                    con.send(JSON.stringify(results));
-                });
-            });
-            conn.release();
-        });
+	sendDataToClient();
     },
   });
 
@@ -76,14 +99,7 @@ const client = mqtt.connect(connectUrl , {
 // On WebSocket Connection
 wss.on("connection", (ws) => {
     console.log("Connection opened")
-    pool.getConnection(function(err,conn){
-        //console.log(err);
-        conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
-            if(error) throw error;
-            ws.send(JSON.stringify(results));
-        });
-        conn.release();
-    });
+    sendDataToClient();
     
 });
 
@@ -113,13 +129,7 @@ client.on('connect', () => {
                 //console.log("TEST ", results);
             });
               	//console.log(err);
-            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
-                if(error) throw error;
-                console.log("Send to clients....");
-                wss.clients.forEach((con)=>{
-                    con.send(JSON.stringify(results));
-                });
-            });
+       	    sendSensorDataToClient();
             conn.release();
         });
 	

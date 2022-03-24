@@ -18,23 +18,24 @@
 
         socket.onmessage = (event)=>{
             var res = JSON.parse(event.data);
-	    //console.log(res);
-            for (var i = 0; i < res.length; i++) {
-                if (res[i].id == "lightSensor") {
-                    lightValue = res[i].value;
+	    console.log(res.tipps);
+            for (var i = 0; i < res.sensors.length; i++) {
+                if (res.sensors[i].id == "lightSensor") {
+                    lightValue = res.sensors[i].value;
+		    //console.log(res.sensors);
                     document.getElementById("lightValueOut").innerHTML = lightValue;
                     //document.getElementById("lightUnit").innerHTML = res[i].unit;
                     updateDiagram();
-                } else if(res[i].id == "moistureSensor"){
-                    moistyValue = res[i].value;
+                } else if(res.sensors[i].id == "moistureSensor"){
+                    moistyValue = res.sensors[i].value;
 		    //console.log("Moisty: " + moistyValue);
                     document.getElementById("moistyValueOut").innerHTML = moistyValue;
                     //document.getElementById("moistyUnit").innerHTML = res[i].unit;
                     updateDiagram();
                     //console.log("Moisty " + res[i].value); 
-                } else if(res[i].id == "temperatureSensor"){
-                    temperatureValue = res[i].value;
-		    temperatureValue = Math.round(temperatureValue);
+                } else if(res.sensors[i].id == "temperatureSensor"){
+                    temperatureValue = res.sensors[i].value;
+		    temperatureValue = Number(temperatureValue).toFixed(1);
                     document.getElementById("tempvalueOut").innerHTML = temperatureValue;
                     //document.getElementById("temperatureUnit").innerHTML = res[i].unit;
                     updateDiagram();
