@@ -50,6 +50,8 @@ instance.addTrigger({
                 if(error) throw error;
                 //console.log("TEST ", results);
                 wss.clients.forEach((con)=>{
+                    retVal = {"sensors": results};
+                    console.log(retVal);
                     con.send(JSON.stringify(results));
                 });
             });
