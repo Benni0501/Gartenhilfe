@@ -26,12 +26,14 @@ var apikey = "<api-key>";
             }
         }
 
-        function showPosition(position) {
+        async function showPosition(position) {
             console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
             userlatitude = position.coords.latitude;
             userlongitude = position.coords.longitude;
             getLocName();
-            Sleep(100);
+            if(currentdata == null){
+                await Sleep(100);
+            }
             getStatus();
 
         }
