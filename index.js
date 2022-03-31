@@ -79,6 +79,28 @@ function sendSensorDataToClient(){
         });
 }
 
+function sendDatatoOneClient(ws){
+    var sensors = {};
+	var tipps = {};
+	pool.getConnection(function(err,conn){
+            conn.query('SELECT * FROM webthings', function(error,results, fields){
+                if(error) throw error;
+		results.forEach((res)=>{
+			res.webthings_id = res.webthings_id.substring(34,46);
+		});
+		sensors = results;
+		//console.log(sensors);
+	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
+		     if(error) throw error;
+                     tipps = results;
+                     var retVal = {"tipps":tipps, "sensors":sensors};
+            	     ws.send(JSON.stringify(retVal));
+	        });
+	    });
+            conn.release();
+        });
+}
+
 instance.start();
 
 instance.addTrigger({
@@ -106,8 +128,7 @@ const client = mqtt.connect(connectUrl , {
 // On WebSocket Connection
 wss.on("connection", (ws) => {
     console.log("Connection opened")
-    sendDataToClient();
-    
+    sendDatatoOneClient(ws);
 });
 
 // On WebSocket Close
