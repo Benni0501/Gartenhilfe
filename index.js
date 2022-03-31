@@ -45,10 +45,13 @@ function sendDataToClient(){
         conn.query('SELECT * FROM webthings', function(error,results, fields){
             if(error) throw error;
 	    	results.forEach((res)=>{
-		    	res.webthings_id = res.webthings_id.substring(34,46);
-		    });
+                        let yaman = res.webthings_id.split('/');
+                        //console.log(yaman[0]);
+                        //console.log(yaman[0].substring(34));
+                        res.webthings_id = yaman[0].substring(34);
+                });
 		    sensors = results;
-		    //console.log(sensors);
+		    console.log(sensors);
 	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
 		     if(error) throw error;
                      tipps = results;
@@ -67,9 +70,12 @@ function sendSensorDataToClient(){
             conn.query('SELECT * FROM webthings', function(error,results, fields){
                 if(error) throw error;
  		        results.forEach((res)=>{
-                	res.webthings_id = res.webthings_id.substring(34,46);
+                	let yaman = res.webthings_id.split('/');
+			//console.log(yaman[0]);
+			//console.log(yaman[0].substring(34));
+                        res.webthings_id = yaman[0].substring(34);
                 });
-                //console.log("TEST ", results);
+                console.log(results);
 		var retVal = {"tipps":null,"sensors":results};
                 wss.clients.forEach((con)=>{
                     con.send(JSON.stringify(retVal));
@@ -86,8 +92,11 @@ function sendDatatoOneClient(ws){
             conn.query('SELECT * FROM webthings', function(error,results, fields){
                 if(error) throw error;
 		results.forEach((res)=>{
-			res.webthings_id = res.webthings_id.substring(34,46);
-		});
+                        let yaman = res.webthings_id.split('/');
+                        //console.log(yaman[0]);
+                        //console.log(yaman[0].substring(34));
+                        res.webthings_id = yaman[0].substring(34);
+                });
 		sensors = results;
 		//console.log(sensors);
 	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
