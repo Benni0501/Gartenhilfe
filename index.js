@@ -42,9 +42,13 @@ function sendDataToClient(){
 	var sensors = {};
 	var tipps = {};
 	pool.getConnection(function(err,conn){
-            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+            conn.query('SELECT * FROM webthings', function(error,results, fields){
                 if(error) throw error;
+		results.forEach((res)=>{
+			res.webthings_id = res.webthings_id.substring(34,46);
+		});
 		sensors = results;
+		//console.log(sensors);
 	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
 		     if(error) throw error;
                      tipps = results;
@@ -60,8 +64,11 @@ function sendDataToClient(){
 
 function sendSensorDataToClient(){
 	pool.getConnection(function(err,conn){
-            conn.query('SELECT id,value,unit FROM webthings', function(error,results, fields){
+            conn.query('SELECT * FROM webthings', function(error,results, fields){
                 if(error) throw error;
+ 		results.forEach((res)=>{
+                	res.webthings_id = res.webthings_id.substring(34,46);
+                });
                 //console.log("TEST ", results);
 		var retVal = {"tipps":null,"sensors":results};
                 wss.clients.forEach((con)=>{
@@ -119,11 +126,11 @@ client.on('connect', () => {
     client.on('message', (topic, payload) => {
         console.log("Received: ",topic,payload.toString());
         topic = topic.substring(10);
-        //console.log(topic);
+        console.log(topic.substring(34,46));
         
         // Get Data from Database and send it to the clients
         pool.getConnection(function(err,conn){
-            console.log(err);
+            if(err) console.log(err);
             conn.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
                 if(error) throw error;
                 //console.log("TEST ", results);
