@@ -42,13 +42,13 @@ function sendDataToClient(){
 	var sensors = {};
 	var tipps = {};
 	pool.getConnection(function(err,conn){
-            conn.query('SELECT * FROM webthings', function(error,results, fields){
-                if(error) throw error;
-		results.forEach((res)=>{
-			res.webthings_id = res.webthings_id.substring(34,46);
-		});
-		sensors = results;
-		//console.log(sensors);
+        conn.query('SELECT * FROM webthings', function(error,results, fields){
+            if(error) throw error;
+	    	results.forEach((res)=>{
+		    	res.webthings_id = res.webthings_id.substring(34,46);
+		    });
+		    sensors = results;
+		    //console.log(sensors);
 	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
 		     if(error) throw error;
                      tipps = results;
@@ -66,7 +66,7 @@ function sendSensorDataToClient(){
 	pool.getConnection(function(err,conn){
             conn.query('SELECT * FROM webthings', function(error,results, fields){
                 if(error) throw error;
- 		results.forEach((res)=>{
+ 		        results.forEach((res)=>{
                 	res.webthings_id = res.webthings_id.substring(34,46);
                 });
                 //console.log("TEST ", results);
