@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <script src="frontend.js" async></script>
+    <link href="./styles/index.css" rel="stylesheet" type="text/css">
+
 </head>
 
 
@@ -28,10 +28,10 @@
         </ul>
     </div>
     <div id="main">
-
         <div class="head">
             <div class="col-div-6">
-                <span style="font-size:40px;cursor:pointer; text-align: center; color: white;" class="nav">Sensoren</span>
+                <span style="font-size:40px;cursor:pointer; text-align: center; color: white;"
+                    class="nav">Sensoren</span>
             </div>
 
         </div>
@@ -41,8 +41,13 @@
 
         <div class="clearfix"></div>
         <br /><br />
-        <div class="col-div-10">
-
+        <div class="col-div-10" id="sensorsDiv">
+            
+            <!--  
+            <div class="col-div-12" style="padding-top: 50px; text-align: center; ">
+                <span
+                    style="      margin-right: 100px; font-size:40px;cursor:pointer; text-align: center; color: white;">Device1</span>
+            </div>
             <div class="container">
                 <div class="card" id="card1">
                     <div class="content">
@@ -50,7 +55,7 @@
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Helligkeit<br><span>Lux</span></h3>
+                            <h3>Helligkeit<br><span id="lightUnit">test</span></h3>
                             <h3 id="lightValueOut">-</h3>
                         </div>
 
@@ -63,7 +68,7 @@
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Feuchtigkeit<br><span>%</span></h3>
+                            <h3>Feuchtigkeit<br><span id="moistyUnit">test</span></h3>
                             <h3 id="moistyValueOut">-</h3>
                         </div>
 
@@ -76,7 +81,7 @@
                             sadd
                         </div>
                         <div id="infoText" class="contentBx">
-                            <h3>Temperatur<br><span>Celsius</span></h3>
+                            <h3>Temperatur<br><span id="temperatureUnit">test</span></h3>
                             <h3 id="tempvalueOut">-</h3>
                         </div>
 
@@ -84,11 +89,14 @@
 
                 </div>
             </div>
-
+-->
         </div>
 
         <div class="clearfix"></div>
     </div>
+
+    <script language="javascript" type="text/javascript" src="./js/index.js"></script>
+
 
 </body>
 

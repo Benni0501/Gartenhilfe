@@ -2,15 +2,14 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
     <title>Gartenhilfe</title>
     <script src="https://code.highcharts.com/highcharts.js">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/90fead3944.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="weather_js.js" async></script>
-    <link rel="stylesheet" href="styles_weather.css">
+    <link href="./styles/Weather.css" rel="stylesheet" type="text/css">
+
 </head>
 
 
@@ -100,12 +99,12 @@
         <div class="col-div-6">
             <!-- col-div-6-->
             <div class="box box1">
-                <p><span id="maxTempDisplay">5</span>°C <br /><span class="spanStyle">Heutige Höchsttemperatur</span>
+                <p><span id="maxTempDisplay">5</span>°C <br /><span class="spanStyle">heutige Höchsttemperatur</span>
                 </p>
                 <i class="fa-solid fa-temperature-full box-icon"></i>
             </div>
             <div class="box box2">
-                <p><span id="minTempDisplay">5</span>°C <br /><span class="spanStyle">Heutige Tiefsttemperatur</span>
+                <p><span id="minTempDisplay">5</span>°C <br /><span class="spanStyle">heutige Tiefsttemperatur</span>
                 </p>
                 <i class="fa-solid fa-temperature-empty box-icon"></i>
             </div>
@@ -116,6 +115,9 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
+    <script language="javascript" type="text/javascript" src="./js/Weather.js"></script>
+
 
 
 </body>
