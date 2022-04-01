@@ -3,11 +3,11 @@
 Dies hier ist das Backend für unsere Website
 - index.js &rarr; Server
 - index.html &rarr; HTML für Sensor-Frontend
-- frontend.js &rarr; JS für Sensor-Frontend
-- styles.css &rarr; CSS für Sensor-Frontend
+- js/index.js &rarr; JS für Sensor-Frontend
+- styles/index.css &rarr; CSS für Sensor-Frontend
 - Weather.html &rarr; HTML für Weather-Frontend
-- weather_js.js &rarr; JS für Weather-Frontend
-- styles_weather.css &rarr; CSS für Weather-Frontend
+- js/Weather.js &rarr; JS für Weather-Frontend
+- styles/Weather.css &rarr; CSS für Weather-Frontend
 
 ## Erklärung
 Frontend und Backend kommunizieren mithilfe eines Websockets
