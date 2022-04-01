@@ -1,0 +1,503 @@
+<!Doctype HTML>
+<html>
+
+<head>
+    <title>Gartenhilfe</title>
+    <script src="https://code.highcharts.com/highcharts.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+        * {
+            padding: 0;
+
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            background: rgb(54, 54, 54);
+            overflow-y: scroll;
+            font-family: system-ui;
+
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+
+
+        .container {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 100px;
+
+
+        }
+
+
+
+        .container .card {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 20px;
+            margin-right: 100px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container .card .content {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0.5;
+            transition: 0.5s;
+        }
+
+        .container .card:hover .content {
+            opacity: 1;
+        }
+
+        .container .card .content .diagram {
+            font-family: 'Roboto', sans-serif;
+            z-index: 51;
+            position: relative;
+            align-content: center;
+            width: 300px;
+            height: 150px;
+
+            overflow: hidden;
+            /* border: 10px solid rgba(0, 0, 0, 0.25);
+        */
+        }
+
+
+        .container .card .content .contentBx h3 {
+            font-family: 'Roboto', sans-serif;
+            color: whitesmoke;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-size: 18px;
+            text-align: center;
+            margin: 20px 0 10px;
+            line-height: 1.1em;
+        }
+
+        .container .card .content .contentBx h3 span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            text-transform: initial;
+
+        }
+
+        .clearfix {
+            clear: both;
+        }
+
+        .logo {
+            margin: 0px;
+            margin-left: 28px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .sidenav {
+            position: fixed;
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background: #23272A;
+            overflow: hidden;
+            transition: 0.5s;
+            padding-top: 30px;
+        }
+
+        .sidenav a {
+            padding: 15px 8px 15px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+            background-color: #2f3136;
+        }
+
+        .sidenav {
+            position: fixed;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 300px;
+
+
+
+        }
+
+
+
+        .head {
+            padding: 20px;
+        }
+
+        @media screen and (min-width: 1608) {
+            body {
+                overflow: hidden;
+
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <p class="logo">Gartenhilfe</p>
+        <a href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
+                class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
+        <a href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+    </div>
+    <div id="main">
+
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav">Sensoren</span>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div class="clearfix"></div>
+        <br /><br />
+        <div class="col-div-10">
+
+            <div class="container">
+                <div class="card" id="card1">
+                    <div class="content">
+                        <div class="diagram" id="lightDiagram">
+                            sadd
+                        </div>
+                        <div id="infoText" class="contentBx">
+                            <h3>Helligkeit<br><span>Lux</span></h3>
+                            <h3 id="lightValueOut">-</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card" id="card2">
+                    <div class="content">
+                        <div class="diagram" id="moistyDiagram">
+                            sadd
+                        </div>
+                        <div id="infoText" class="contentBx">
+                            <h3>Feuchtigkeit<br><span>%</span></h3>
+                            <h3 id="lightValueOut">-</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card" id="card3">
+                    <div class="content">
+                        <div class="diagram" id="tempDiagram">
+                            sadd
+                        </div>
+                        <div id="infoText" class="contentBx">
+                            <h3>Temperatur<br><span>Celsius</span></h3>
+                            <h3 id="tempvalueOut">-</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+
+    <script>
+
+
+
+        var lightValue;
+        var lightMaxValue = 4100;
+        var percentageLight;
+        var lightDiagramData;
+
+        var moistyValue;
+        var moistyMaxValue = 4100;
+        var percentageMoisty;
+        var moistyDiagramData;
+
+
+        var tempValue;
+        var tempMaxValue = 4100;
+        var percentageTemp = 80;
+        var tempDiagramData;
+
+        updateDiagram();
+        setInterval(function () {
+            getStatus();
+        }, 100);
+        //deleteEmtyCards();
+        function getStatus() {
+
+            $.get("http://gateway.local:3001/getButtons", function (data) {
+                try {
+                    var res = JSON.parse(data);
+                } catch (err) {
+                    console.log("Error");
+                }
+                for (var i = 0; i < res.length; i++) {
+                    var object = document.getElementById(res[i].id);
+
+                    if (res[i].id == "lightSensor") {
+                        lightValue = res[i].value;
+                        document.getElementById("lightValueOut").innerHTML = lightValue;
+                        updateDiagram();
+                    }
+                }
+            }).fail(function (data, xhr) {
+                console.log("Fail: " + xhr);
+            }).done(function () {
+                console.log("done");
+            })
+        }
+
+        function updateDiagram() {
+            percentageLight = 100 * (lightValue / lightMaxValue);
+            console.log(lightMaxValue);
+            console.log(lightValue);
+
+            //Diagramm Licht
+            lightDiagramData = [
+                {
+                    name: 'Lumen',
+                    y: percentageLight,
+                    color: "whitesmoke",
+                    dataLabels: {
+                        enabled: false
+                    }
+                },
+                {
+                    name: '',
+                    y: 100 - percentageLight,
+                    color: "transparent",
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ];
+            Highcharts.chart('lightDiagram', {
+                chart: {
+                    backgroundColor: 'transparent',
+                    enableMouseTracking: false,
+                    plotBorderWidth: 0,
+                    height: "180px"
+                },
+                tooltip: {
+                    enabled: false,
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                },
+                title: { text: null },
+                plotOptions: {
+                    series: {
+                        animation: false
+                    },
+                    pie: {
+                        allowPointSelect: false,
+                        enableMouseTracking: false,
+                        dataLabels: {
+                            allowPointSelect: false,
+                            enabled: false,
+
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '70%'],
+                        size: "150%"
+                    }
+                },
+                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: lightDiagramData }]
+            });
+
+
+            //Diagram moisty mire
+            percentageMoisty = 100 * (moistyValue / moistyMaxValue);
+            percentageMoisty = 80;
+            moistyDiagramData = [
+                {
+                    name: 'Lumen',
+                    y: percentageMoisty,
+                    color: "whitesmoke",
+                    dataLabels: {
+                        enabled: false
+                    }
+                },
+                {
+                    name: '',
+                    y: 100 - percentageMoisty,
+                    color: "transparent",
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ];
+            Highcharts.chart('moistyDiagram', {
+                chart: {
+                    backgroundColor: 'transparent',
+                    enableMouseTracking: false,
+                    plotBorderWidth: 0,
+                    height: "180px"
+                },
+                tooltip: {
+                    enabled: false,
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                },
+                title: { text: null },
+                plotOptions: {
+                    series: {
+                        animation: false
+                    },
+                    pie: {
+                        allowPointSelect: false,
+                        enableMouseTracking: false,
+                        dataLabels: {
+                            allowPointSelect: false,
+                            enabled: false,
+
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '70%'],
+                        size: "150%"
+                    }
+                },
+                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: moistyDiagramData }]
+            });
+
+            //Diagramm Temperatur
+            //percentageTemp = 100 * (tempValue / tempMaxValue);
+
+            tempDiagramData = [
+                {
+                    name: 'Lumen',
+                    y: percentageTemp,
+                    color: "whitesmoke",
+                    dataLabels: {
+                        enabled: false
+                    }
+                },
+                {
+                    name: '',
+                    y: 100 - percentageTemp,
+                    color: "transparent",
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ];
+            Highcharts.chart('tempDiagram', {
+                chart: {
+                    backgroundColor: 'transparent',
+                    enableMouseTracking: false,
+                    plotBorderWidth: 0,
+                    height: "180px"
+                },
+                tooltip: {
+                    enabled: false,
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                },
+                title: { text: null },
+                plotOptions: {
+                    series: {
+                        animation: false
+                    },
+                    pie: {
+                        allowPointSelect: false,
+                        enableMouseTracking: false,
+                        dataLabels: {
+                            allowPointSelect: false,
+                            enabled: false,
+
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '70%'],
+                        size: "150%"
+                    }
+                },
+                series: [{ type: 'pie', name: 'Value', innerSize: '70%', data: tempDiagramData }]
+            });
+
+
+        }
+        function deleteEmtyCards() {
+            console.log(lightValue);
+            console.log(moistyValue);
+            console.log(tempValue);
+            if (lightValue == null) {
+
+                document.getElementById("card1").remove();
+
+            } if (moistyValue == null) {
+
+                document.getElementById("card2").remove();
+
+            } if (tempValue == null) {
+                document.getElementById("card3").remove();
+
+            }
+        }
+    </script>
+
+</body>
+
+
+</html>
