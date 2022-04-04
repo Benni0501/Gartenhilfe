@@ -39,7 +39,7 @@ function showPosition(position) {
 
 function getLocName() {
     //json objekt
-    $.get(" http://api.openweathermap.org/data/2.5/weather?lat=" + userlatitude + "&lon=" + userlongitude + "&appid=" + apikey + "&units=metric&lang=de", function (data) {
+    $.get(" https://api.openweathermap.org/data/2.5/weather?lat=" + userlatitude + "&lon=" + userlongitude + "&appid=" + apikey + "&units=metric&lang=de", function (data) {
         try {
             currentdata = data;
             console.log(currentdata);
