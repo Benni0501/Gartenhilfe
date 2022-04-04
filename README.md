@@ -23,4 +23,4 @@ Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
 }
 ```
 <br>
-Für näheres siehe <a href="https://github.com/Benni0501/Gartenhilfe/blob/backend_website/index.html">index.html</a>.
+Für näheres siehe <a href="index.html">index.html</a>.
