@@ -172,7 +172,11 @@ body::-webkit-scrollbar {
         right: 25px;
         font-size: 36px;
     }
+    .deviceHeader {
+        margin-right: 100px;
 
+
+    }
     .sidenav a {
         padding: 15px 8px 15px 32px;
         text-decoration: none;
@@ -220,6 +224,13 @@ body::-webkit-scrollbar {
         float: left;
     }
 
+    .nav {
+
+        margin-right: 00px;
+
+
+    }
+
     .box-4 {
         /*width: 95%;*/
         width: 85%;
@@ -228,6 +239,12 @@ body::-webkit-scrollbar {
         background: #23272A;
         height: 366.666px;
         padding: 10px;
+    }
+
+    .deviceHeader {
+        margin-right: 0px;
+
+
     }
 
     .box1 {
@@ -306,6 +323,14 @@ body::-webkit-scrollbar {
     .col-div-6 {
         width: 100%;
         float: left;
+    }
+    .deviceHeader {
+        margin-right: 0px;
+
+
+    }
+    .span {
+        margin-right: 0;
     }
 
     .box-4 {
