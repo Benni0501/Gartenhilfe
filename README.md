@@ -1,13 +1,13 @@
 # Gartenhilfe
 ## Backend_Website
 Dies hier ist das Backend für unsere Website
-- index.js &rarr; Server
-- index.html &rarr; HTML für Sensor-Frontend
-- frontend.js &rarr; JS für Sensor-Frontend
-- styles.css &rarr; CSS für Sensor-Frontend
-- Weather.html &rarr; HTML für Weather-Frontend
-- weather_js.js &rarr; JS für Weather-Frontend
-- styles_weather.css &rarr; CSS für Weather-Frontend
+- <a href="index.js">index.js</a> &rarr; Server
+- <a href="index.html">index.html</a> &rarr; HTML für Sensor-Frontend
+- <a href="js/index.js">js/index.js</a> &rarr; JS für Sensor-Frontend
+- <a href="styles/index.css">styles/index.css</a> &rarr; CSS für Sensor-Frontend
+- <a href="Weather.html">Weather.html</a> &rarr; HTML für Weather-Frontend
+- <a href="js/Weather.js">js/Weather.js</a> &rarr; JS für Weather-Frontend
+- <a href="styles/Weather.css">styles/Weather.css</a> &rarr; CSS für Weather-Frontend
 
 ## Erklärung
 Frontend und Backend kommunizieren mithilfe eines Websockets
@@ -22,5 +22,3 @@ Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
   "sensors":<sensor-daten>
 }
 ```
-<br>
-Für näheres siehe <a href="https://github.com/Benni0501/Gartenhilfe/blob/backend_website/index.html">index.html</a>.
