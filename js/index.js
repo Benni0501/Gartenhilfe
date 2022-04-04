@@ -16,7 +16,7 @@ var tempMaxValue = 50;
 var percentageTemp = 80;
 var tempDiagramData;
 const socket = new WebSocket("wss://suppanschitz.com:3001");
-
+created=false
 //updateDiagram();
 
 socket.onmessage = (event) => {
@@ -33,12 +33,14 @@ socket.onmessage = (event) => {
         }
 
     }
+    if(!created){
     for (var y = 0; y < differentSensors.length; y++) {
 
-        addDevices(y + 1);
-
+        addDevices(y + 1, differentSensors[y]);
+       
+created= true;
     }
-
+    }
 
 
 
@@ -118,14 +120,14 @@ socket.onmessage = (event) => {
        }*/
 };
 
-function addDevices(i) {
+function addDevices(i,j) {
 
 
     const main = document.getElementById("sensorsDiv");
 
     main.innerHTML += `   <div class="col-div-12" style=" padding-top: 50px; text-align: center; ">
-    <span
-        style="    margin-right: 100px; font-size:40px;cursor:pointer; text-align: center; color: white;">Device `+ i + `</span>
+    <span class="deviceHeader"
+        style="     font-size:40px;cursor:pointer; text-align: center; color: white;">`+ j + `</span>
 </div>  <div class="container">
     <div class="card" id="card1">
         <div class="content">
