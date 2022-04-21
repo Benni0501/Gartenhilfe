@@ -119,9 +119,13 @@ body::-webkit-scrollbar {
 
 
 
-.sidenav a:hover {
+.sidenav a #aktiv:hover {
     color: #f1f1f1;
     background-color: #2f3136;
+}
+
+#defaultcursor {
+    cursor: default;
 }
 
 
@@ -172,11 +176,13 @@ body::-webkit-scrollbar {
         right: 25px;
         font-size: 36px;
     }
+
     .deviceHeader {
         margin-right: 100px;
 
 
     }
+
     .sidenav a {
         padding: 15px 8px 15px 32px;
         text-decoration: none;
@@ -324,11 +330,13 @@ body::-webkit-scrollbar {
         width: 100%;
         float: left;
     }
+
     .deviceHeader {
         margin-right: 0px;
 
 
     }
+
     .span {
         margin-right: 0;
     }
