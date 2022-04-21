@@ -16,7 +16,7 @@ var tempMaxValue = 50;
 var percentageTemp = 80;
 var tempDiagramData;
 const socket = new WebSocket("wss://suppanschitz.com:3001");
-created=false
+created = false
 //updateDiagram();
 
 socket.onmessage = (event) => {
@@ -33,13 +33,13 @@ socket.onmessage = (event) => {
         }
 
     }
-    if(!created){
-    for (var y = 0; y < differentSensors.length; y++) {
+    if (!created) {
+        for (var y = 0; y < differentSensors.length; y++) {
 
-        addDevices(y + 1, differentSensors[y]);
-       
-created= true;
-    }
+            addDevices(y + 1, differentSensors[y]);
+
+            created = true;
+        }
     }
 
 
@@ -119,8 +119,11 @@ created= true;
            }
        }*/
 };
+function egg() {
+    location.replace("./nvs1.html")
+}
 
-function addDevices(i,j) {
+function addDevices(i, j) {
 
 
     const main = document.getElementById("sensorsDiv");
