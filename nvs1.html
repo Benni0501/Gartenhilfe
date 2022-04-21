@@ -1,0 +1,623 @@
+<html>
+
+<head>
+    <title>Rechner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            text-align: center;
+        }
+        
+        body {
+            background-color: #494949;
+            text-align: center;
+        }
+        
+        hr {
+            width: 30px;
+            height: 3px;
+            background: whitesmoke;
+            border: 0;
+            margin: 0 auto 40px auto;
+        }
+        
+        section {
+            min-height: 100%;
+            border-top: 1px solid whitesmoke!important;
+        }
+        
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: whitesmoke;
+            text-transform: uppercase;
+            font-size: 40px;
+            padding-top: 8%;
+            margin-bottom: 5px;
+        }
+        
+        button {
+            margin-top: 14%;
+            background-color: #434343;
+            border-radius: 45px;
+            height: 5%;
+            font-size: 130%;
+            width: 35%;
+            border: 0px solid whitesmoke !important;
+            font-family: 'Roboto', sans-serif;
+            color: whitesmoke;
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            color: #434343;
+            background-color: whitesmoke;
+        }
+        /*inputs*/
+        /* form starting stylings  */
+        
+        .group {
+            position: relative;
+            margin-bottom: 45px;
+            margin-left: 42%;
+        }
+        
+        input {
+            background-color: #494949;
+            font-size: 18px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 300px;
+            border: none;
+            border-bottom: 1px solid gray;
+        }
+        
+        input:focus {
+            outline: none;
+        }
+        /* LABEL  */
+        
+        label {
+            color: gray;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+        
+        input:focus~label,
+        input:valid~label {
+            top: -20px;
+            font-size: 14px;
+            color: whitesmoke;
+        }
+        
+        .outputonly {
+            top: -20px;
+            font-size: 14px;
+            color: whitesmoke;
+        }
+        /* BOTTOM BARS*/
+        
+        .bar {
+            position: relative;
+            display: block;
+            width: 300px;
+        }
+        
+        .bar:before,
+        .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1px;
+            position: absolute;
+            background: whitesmoke;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+        
+        .bar:before {
+            left: 50%;
+        }
+        
+        .bar:after {
+            right: 50%;
+        }
+        
+        input:focus~.bar:before,
+        input:focus~.bar:after {
+            width: 50%;
+        }
+        /* HIGHLIGHTER */
+        
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        /* active state */
+        
+        input:focus~.highlight {
+            -webkit-animation: inputHighlighter 0.3s ease;
+            -moz-animation: inputHighlighter 0.3s ease;
+            animation: inputHighlighter 0.3s ease;
+        }
+        /* ANIMATIONS */
+        
+        @-webkit-keyframes inputHighlighter {
+            from {
+                background: whitesmoke;
+            }
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+        
+        @-moz-keyframes inputHighlighter {
+            from {
+                background: whitesmoke;
+            }
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+        
+        @keyframes inputHighlighter {
+            from {
+                background: whitesmoke;
+            }
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+        /*scrollbar*/
+        
+         ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #2f3136;
+        }
+        
+         ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #2f3136;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #AAAAAA;
+        }
+    </style>
+    <script>
+        function calcAndOutBinary(x) {
+            x = parseInt(x.value)
+            x = x.toString(2);
+            document.getElementById("inputbinary").value = x;
+
+        }
+
+        function calcAndOutDecimal(x) {
+            x = x.value;
+            document.getElementById("inputdecimal").value = parseInt(x, 2);
+        }
+
+        function calcAndOutsubnetmask(x, y) {
+            console.log(x.value)
+            if (x.value <= 32 && x.value >= 0 && x.value != "") {
+                var data = []
+                x = parseInt(x.value);
+                var helper = "";
+                for (var i = 1; i <= x; i++) {
+                    if (helper.length == 8) {
+                        data.push(helper);
+                        helper = "";
+                    }
+                    helper = helper + "1";
+
+                }
+                for (var i = 1; i <= (32 - x); i++) {
+                    if (helper.length == 8) {
+                        data.push(helper);
+                        helper = "";
+                    }
+                    helper = helper + "0";
+
+                }
+                data.push(helper);
+                var finaldata = ""
+                for (var i = 0; i <= 2; i++) {
+                    finaldata = finaldata + parseInt(data[i], 2) + ".";
+                }
+                finaldata = finaldata + parseInt(data[3], 2);
+                console.log(finaldata)
+                console.log(data)
+
+                document.getElementById("inputsubnetmask").value = finaldata;
+
+            }
+        }
+
+        function calcAndOutprefix(x) {
+            x = x.value;
+            prefix = 0
+            var [first, second, third, four] = x.split('.');
+            first = (parseInt(first)).toString(2)
+            second = (parseInt(second)).toString(2)
+            third = (parseInt(third)).toString(2)
+            four = (parseInt(four)).toString(2)
+            var all = "";
+            all = first + second + third + four;
+
+            for (var i = 0; i < 32; i++) {
+                console.log(all.charAt(i))
+                if (all.charAt(i) == 0) {
+                    console.log(i);
+                    prefix = i;
+                    break;
+
+                }
+            }
+            document.getElementById("inputprefix").value = prefix;
+        }
+
+        function prefixToSubnet(x) {
+            var data = []
+            x = parseInt(x);
+            var helper = "";
+            for (var i = 1; i <= x; i++) {
+                if (helper.length == 8) {
+                    data.push(helper);
+                    helper = "";
+                }
+                helper = helper + "1";
+
+            }
+            for (var i = 1; i <= (32 - x); i++) {
+                if (helper.length == 8) {
+                    data.push(helper);
+                    helper = "";
+                }
+                helper = helper + "0";
+
+            }
+            data.push(helper);
+            var finaldata = ""
+            for (var i = 0; i <= 2; i++) {
+                finaldata = finaldata + parseInt(data[i], 2) + ".";
+            }
+            finaldata = finaldata + parseInt(data[3], 2);
+            console.log(finaldata)
+            console.log(data)
+            return finaldata;
+
+        }
+
+        function toBinaryIp(x) {
+            prefix = 0
+            var [first, second, third, four] = x.split('.');
+            first = (parseInt(first)).toString(2)
+            second = (parseInt(second)).toString(2)
+            third = (parseInt(third)).toString(2)
+            four = (parseInt(four)).toString(2)
+            var all = "";
+            all = first + second + third + four;
+
+            console.log(all.length);
+            return all;
+        }
+
+        function checkValidIp(x) {
+            //
+            while (true) {
+                if (x[3] > 255) {
+                    x[3] = x[3] - 256;
+
+                    x[2] = x[2] + 1;
+                } else {
+                    break
+                }
+
+
+            }
+            while (true) {
+                if (x[2] > 255) {
+                    x[2] = x[2] - 256;
+
+                    x[1] = x[1] + 1;
+                } else {
+                    break
+                }
+
+
+            }
+            while (true) {
+                if (x[1] > 255) {
+                    x[1] = x[1] - 256;
+
+                    x[0] = x[0] + 1;
+                } else {
+                    break
+                }
+
+
+            }
+
+
+            return x
+        }
+
+
+        function networkcalc() {
+            var parts = [];
+            var hosts = Math.pow(2, 32 - document.getElementById("calcinputprefix").value) - 2;
+            console.log("hosts" + hosts);
+            var firsthost = "";
+            var prefixbinary = toBinaryIp(prefixToSubnet(document.getElementById("calcinputprefix").value));
+            var ipbinary = toBinaryIp(document.getElementById("calcinputip").value);
+            var networkip = "";
+            for (var i = 0; i < ipbinary.length; i++) {
+                if (networkip.length == 8) {
+                    parts.push(networkip);
+                    networkip = "";
+                }
+                if (ipbinary.charAt(i) == 1 && prefixbinary.charAt(i) == 1) {
+                    networkip = networkip + "1";
+
+                } else {
+                    networkip = networkip + "0";
+                }
+            }
+            parts.push(networkip);
+            networkip = "";
+            console.log(networkip);
+            console.log(parts);
+
+
+            //networkip
+            for (var i = 0; i <= 2; i++) {
+                networkip = networkip + parseInt(parts[i], 2) + ".";
+            }
+            networkip = networkip + parseInt(parts[3], 2);
+
+            console.log(networkip);
+            document.getElementById("outputnetworkaddress").value = networkip;
+
+
+
+            //firsthost
+            /*          for (var i = 0; i <= 2; i++) {
+                firsthost = firsthost + parseInt(parts[i], 2) + ".";
+            }
+
+            firsthost = firsthost + (parseInt(parts[3], 2) + 1);
+            console.log(firsthost);
+            document.getElementById("outputfirsthost").value = firsthost;
+*/
+
+
+            var firsthostarray = [];
+            var firsthost = ""
+            for (var i = 0; i < 3; i++) {
+                firsthostarray.push(parseInt(parts[i], 2))
+            }
+            firsthostarray.push(parseInt(parts[3], 2) + 1);
+
+
+            console.log(firsthostarray);
+            firsthostarray = checkValidIp(firsthostarray);
+
+            for (var i = 0; i < firsthostarray.length - 1; i++) {
+                firsthost = firsthost + firsthostarray[i] + ".";
+            }
+            firsthost = firsthost + firsthostarray[3];
+
+            console.log(lasthost);
+            document.getElementById("outputfirsthost").value = firsthost;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //lasthost
+            var lasthostarray = [];
+            var lasthost = ""
+            for (var i = 0; i < 3; i++) {
+                lasthostarray.push(parseInt(parts[i], 2))
+            }
+            lasthostarray.push(parseInt(parts[3], 2) + hosts);
+
+
+            console.log(lasthostarray);
+            lasthostarray = checkValidIp(lasthostarray);
+
+            for (var i = 0; i < lasthostarray.length - 1; i++) {
+                lasthost = lasthost + lasthostarray[i] + ".";
+            }
+            lasthost = lasthost + lasthostarray[3];
+
+            console.log(lasthost);
+            document.getElementById("outputlasthost").value = lasthost;
+
+
+
+
+
+
+
+            //broadcastaddresse
+            var broadcastarray = [];
+            var broadcast = ""
+            for (var i = 0; i < 3; i++) {
+                broadcastarray.push(parseInt(parts[i], 2))
+            }
+            broadcastarray.push(parseInt(parts[3], 2) + hosts + 1);
+
+
+            console.log(broadcastarray);
+            broadcastarray = checkValidIp(broadcastarray);
+
+            for (var i = 0; i < broadcastarray.length - 1; i++) {
+                broadcast = broadcast + broadcastarray[i] + ".";
+            }
+            broadcast = broadcast + broadcastarray[3];
+
+            console.log(broadcast);
+            document.getElementById("outputbroadcast").value = broadcast;
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="border-radius: 0; ">
+        <div class="container-fluid">
+            <div style="margin-left: 20px;" class="navbar-header">
+                <a class="navbar-brand" style="color: whitesmoke;" href="./index.html">Sensoren</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 20px;">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#binary">Binary</a></li>
+                <li><a href="#prefix">Prefix</a></li>
+                <li><a href="#calc">Calculate</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="home">
+
+        <h3 style="font-size: 110px;">Home</h3>
+        <hr>
+        <button onclick="location.href='#binary'">get started</button>
+
+    </section>
+    <section id="binary">
+        <h3 style="font-size: 110px;">Binary</h3>
+        <hr>
+
+        <div style="margin-top: 150px;">
+            <div class="group">
+                <input id="inputbinary" onchange="calcAndOutDecimal(this)" type="number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Binary</label>
+            </div>
+
+            <br>
+            <div class="group">
+                <input id="inputdecimal" onchange="calcAndOutBinary(this)" type="number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Decimal</label>
+            </div>
+
+
+        </div>
+
+    </section>
+    <section id="prefix">
+        <h3 style="font-size: 110px;">Prefix</h3>
+        <hr>
+
+        <div style="margin-top: 150px;">
+            <div class="group">
+                <input id="inputprefix" onchange="calcAndOutsubnetmask(this)" type="number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Prefix</label>
+            </div>
+
+            <br>
+            <div class="group">
+                <input id="inputsubnetmask" onchange="calcAndOutprefix(this)" type="text" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Subnetmask</label>
+            </div>
+
+
+        </div>
+
+    </section>
+    <section id="calc">
+        <h3 style="font-size: 110px;">Calculate</h3>
+        <hr>
+
+        <div style="margin-top: 150px;">
+            <div class="group">
+                <input id="calcinputip" type="text" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Ip-address</label>
+            </div>
+
+
+            <div class="group">
+                <input id="calcinputprefix" type="number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Prefix</label>
+            </div>
+
+            <button onclick="networkcalc()" style="margin-top: 10px; width: 300px; margin-bottom: 30px;">calculate</button>
+            <br>
+            <div class="group">
+                <input id="outputnetworkaddress" type="text" disabled>
+
+                <span class="bar"></span>
+                <label class="outputonly">Network-address</label>
+            </div>
+
+            <div class=" group ">
+                <input id="outputbroadcast" type="text " disabled>
+
+                <span class="bar "></span>
+                <label class="outputonly">Broadcast</label>
+            </div>
+            <div class="group">
+                <input id="outputfirsthost" type="text" disabled>
+
+                <span class="bar"></span>
+                <label class="outputonly">Host-IPs from</label>
+            </div>
+            <div class=" group ">
+                <input id="outputlasthost" type="text " disabled>
+
+                <span class="bar "></span>
+                <label class="outputonly ">to</label>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+</html>

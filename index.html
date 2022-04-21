@@ -10,6 +10,9 @@
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="./styles/index.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+
+ 
 
 </head>
 
@@ -17,12 +20,14 @@
 <body>
 
     <div id="mySidenav" class="sidenav">
-        <p class="logo">Gartenhilfe</p>
+        <p class="logo" id="defaultcursor">Gartenhilfe</p>
         <ul style="list-style: none">
-            <li> <a href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
+            <li> <a id="aktiv"  href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
                         class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
             </li>
-            <li> <a href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+            <li> <a id="aktiv" href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+            </li>
+            <li> <a id="defaultcursor" onclick="egg();" class="icon-b">&nbsp;&nbsp;</a>
             </li>
 
         </ul>
@@ -30,7 +35,7 @@
     <div id="main">
         <div class="head">
             <div class="col-div-6">
-                <span style="font-size:40px;cursor:pointer; text-align: center; color: white;"
+                <span id="defaultcursor" style="font-size:40px;cursor:default; text-align: center; color: white;"
                     class="nav">Sensoren</span>
             </div>
 
@@ -42,7 +47,7 @@
         <div class="clearfix"></div>
         <br /><br />
         <div class="col-div-10" id="sensorsDiv">
-            
+
             <!--  
             <div class="col-div-12" style="padding-top: 50px; text-align: center; ">
                 <span
