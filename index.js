@@ -1,7 +1,3 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const http = require("http");
 const ws = require("ws")
 const mqtt = require('mqtt');
 const clientId = 'mqtt_123' + Math.random()*5;
@@ -11,9 +7,6 @@ const https = require('https');
 const fs = require('fs');
 const MySQLEvents = require("@rodrigogs/mysql-events");
 console.log(clientId);
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 // Server erstellen und WebSocket zuweisen
 const server = https.createServer({
