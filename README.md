@@ -1,7 +1,6 @@
 # Gartenhilfe
-## Backend_Website
-Dies hier ist das Backend für unsere Website
-- <a href="index.js">index.js</a> &rarr; Server
+## Website
+Dies hier ist unsere Website
 - <a href="index.html">index.html</a> &rarr; HTML für Sensor-Frontend
 - <a href="js/index.js">js/index.js</a> &rarr; JS für Sensor-Frontend
 - <a href="styles/index.css">styles/index.css</a> &rarr; CSS für Sensor-Frontend
@@ -10,15 +9,9 @@ Dies hier ist das Backend für unsere Website
 - <a href="styles/Weather.css">styles/Weather.css</a> &rarr; CSS für Weather-Frontend
 
 ## Erklärung
-Frontend und Backend kommunizieren mithilfe eines Websockets
+Auf dieser Seite kann man folgendes sehen:
+- Sensoren
+- Wetter
+- Tipps
 
-Um dies zu machen benutzen wir serverseitig Express.js.<br>
-Die Daten werden auf einer MariaDB Datenbak gespeichert.<br>
-
-Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
-```json
-{
-  "tipps":<gartentipps>,
-  "sensors":<sensor-daten>
-}
-```
+<br>Es gibt auch eine kleines Easter-Egg
