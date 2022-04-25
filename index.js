@@ -6,7 +6,7 @@ const mysql = require('mysql');
 const https = require('https');
 const fs = require('fs');
 const MySQLEvents = require("@rodrigogs/mysql-events");
-console.log(clientId);
+//console.log(clientId);
 
 // Server erstellen und WebSocket zuweisen
 const server = https.createServer({
@@ -44,7 +44,7 @@ function sendDataToClient(){
                         res.webthings_id = yaman[0].substring(34);
                 });
 		    sensors = results;
-		    console.log(sensors);
+		    //console.log(sensors);
 	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
 		     if(error) throw error;
                      tipps = results;
@@ -68,7 +68,7 @@ function sendSensorDataToClient(){
 			//console.log(yaman[0].substring(34));
                         res.webthings_id = yaman[0].substring(34);
                 });
-                console.log(results);
+                //console.log(results);
 		var retVal = {"tipps":null,"sensors":results};
                 wss.clients.forEach((con)=>{
                     con.send(JSON.stringify(retVal));
@@ -149,7 +149,7 @@ client.on('connect', () => {
     client.on('message', (topic, payload) => {
         console.log("Received: ",topic,payload.toString());
         topic = topic.substring(10);
-        console.log(topic.substring(34,46));
+        //console.log(topic.substring(34,46));
         
         // Get Data from Database and send it to the clients
         pool.getConnection(function(err,conn){
