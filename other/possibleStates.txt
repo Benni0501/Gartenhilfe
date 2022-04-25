@@ -1,7 +1,0 @@
-Clouds
-Rain
-Clear
-Atmosphere
-Snow
-Drizzle
-Thunderstorm
