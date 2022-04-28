@@ -152,18 +152,12 @@ client.on('connect', () => {
         //console.log(topic.substring(34,46));
         
         // Get Data from Database and send it to the clients
-        pool.getConnection(function(err,conn){
-            if(err) console.log(err);
-            conn.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function(error,results, fields){
-                if(error) throw error;
-                //console.log("TEST ", results);
-            });
-              	//console.log(err);
-       	    sendSensorDataToClient();
-            conn.release();
-        });
-	
-      })
+	pool.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function (error, results, fields) {
+  		if (error) throw error;
+  		console.log('The solution is: ', results[0].solution);
+		sendSensorDataToClient();
+	});
+     })
 })
 
 console.log("Trying to start server");
