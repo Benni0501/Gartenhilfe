@@ -119,7 +119,7 @@ const client = mqtt.connect(connectUrl , {
     clientId,
     clean: true,
     username: 'nodejs',
-    password: 'benni2005',
+    password: '<password>',
     connectTimeout: 4000,
     reconnectPeriod: 1000,
     cert: fs.readFileSync('/etc/letsencrypt/live/suppanschitz.com/cert.pem'),
