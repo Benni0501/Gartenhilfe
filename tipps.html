@@ -1,0 +1,97 @@
+<!Doctype HTML>
+<html>
+
+<head>
+    <title>Gartenhilfe</title>
+    <script src="https://code.highcharts.com/highcharts.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="./styles/tipps.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+
+
+
+</head>
+
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <p class="logo" id="defaultcursor">Gartenhilfe</p>
+        <ul style="list-style: none">
+            <li> <a id="aktiv" href="./index.html" class="icon-a"><i
+                        class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
+            </li>
+            <li> <a id="aktiv" href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+            </li>
+            <li> <a id="aktiv" href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-b"><i
+                        class="fas fa-seedling"></i>&nbsp;&nbsp;Tipps</a>
+            </li>
+
+
+        </ul>
+    </div>
+    <div id="main">
+        <!--popup mit  display:none-->
+
+        <div id="popUp"
+            style=" height: 85vh;margin-top: 5vh; width: 80vw-300px; background-color: aqua; color: whitesmoke; background: rgba(255, 255, 255, 0.05); border-radius: 50px;">
+            <div style="margin-left: 50px; padding-top: 20px;">
+                <h1 onclick="shutpopup()" style="text-align: right;cursor:pointer ; margin-right: 50px;" >X</h1>
+             
+                <div class="headerPic" id="headerPic" style=" height: 150px; width: 150px; border-radius: 100px;background-position: center center;              background-repeat: no-repeat;">   
+             </div>
+             
+                <h1>Name:</h1>
+                <h2 style="margin-left: 100px;" id="outputName">bspname</h2>
+                <h2>Näherstoffanspruch:</h2>
+                <h3 style="margin-left: 100px;" id="outputAnspruch">bspname</h3>
+
+                <h2>Besondere Pflanzenansprüche:</h2>
+                <h3 style="margin-left: 100px;" id="outputBesAnspruch">bspname</h3>
+
+                <h2>Bodenansprüche:</h2>
+                <h3 style="margin-left: 100px;" id="outputboden">bspname</h3>
+
+            </div>
+        </div>
+        <div class="head" id="head">
+            <div class="col-div-6">
+                <span id="defaultcursor" style="font-size:40px;cursor:default; text-align: center; color: white;"
+                    class="nav">Tipps</span>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div class="clearfix"></div>
+        <br /><br />
+        <div class="col-div-10" id="sensorsDiv">
+
+
+            
+            <div class="container" id="container">
+             
+
+            </div>
+
+
+
+
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <script language="javascript" type="text/javascript" src="./js/tipps.js"></script>
+
+
+</body>
+
+
+</html>
