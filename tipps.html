@@ -40,11 +40,12 @@
         <div id="popUp"
             style=" height: 85vh;margin-top: 5vh; width: 80vw-300px; background-color: aqua; color: whitesmoke; background: rgba(255, 255, 255, 0.05); border-radius: 50px;">
             <div style="margin-left: 50px; padding-top: 20px;">
-                <h1 onclick="shutpopup()" style="text-align: right;cursor:pointer ; margin-right: 50px;" >X</h1>
-             
-                <div class="headerPic" id="headerPic" style=" height: 150px; width: 150px; border-radius: 100px;background-position: center center;              background-repeat: no-repeat;">   
-             </div>
-             
+                <h1 onclick="shutpopup()" style="text-align: right;cursor:pointer ; margin-right: 50px;">X</h1>
+
+                <div class="headerPic" id="headerPic"
+                    style=" height: 150px; width: 150px; border-radius: 100px;background-position: center center;              background-repeat: no-repeat;">
+                </div>
+
                 <h1>Name:</h1>
                 <h2 style="margin-left: 100px;" id="outputName">bspname</h2>
                 <h2>Näherstoffanspruch:</h2>
@@ -62,6 +63,11 @@
             <div class="col-div-6">
                 <span id="defaultcursor" style="font-size:40px;cursor:default; text-align: center; color: white;"
                     class="nav">Tipps</span>
+                <input style="  width:25 %;
+                    padding: 12px 20px;
+                    margin-top:8px;
+                    float:right;
+                    box-sizing: border-box;" onchange="searchFor(this)" type="text" name="" id="">
             </div>
 
         </div>
@@ -74,9 +80,9 @@
         <div class="col-div-10" id="sensorsDiv">
 
 
-            
+
             <div class="container" id="container">
-             
+
 
             </div>
 
