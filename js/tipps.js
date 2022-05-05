@@ -72,31 +72,77 @@ function addTipps(i) {
 
 
 
-    main.innerHTML += `      <div class="card" id="card` + i + `" onclick="openBig(`+i+`)">        <div class="content">            <div class="pic" style=" background-image: url(` + getLink(i) + `);">                            </div>            <div id="infoText" class="contentBx">                <h3 style="margin-top: 40px;">` + getName(i) + `</h3>      </div>        </div>    </div>`;
+    main.innerHTML += `      <div class="card" id="card` + i + `" onclick="openBig(` + i + `)">        <div class="content">            <div class="pic" style=" background-image: url(` + getLink(i) + `);">                            </div>            <div id="infoText" class="contentBx">                <h3 style="margin-top: 40px;">` + getName(i) + `</h3>      </div>        </div>    </div>`;
 
 }
 
 function openBig(i) {
 
     console.log("s");
-    document.getElementById("outputName").innerHTML = getName(i); 
-    document.getElementById("outputAnspruch").innerHTML = getClaim(i); 
-    document.getElementById("outputBesAnspruch").innerHTML = getSpecialClaim(i); 
-    document.getElementById("outputboden").innerHTML = getSoilType(i); 
-   document.getElementById("headerPic").style.backgroundImage = "url("+getLink(i)+")"; 
+    document.getElementById("outputName").innerHTML = getName(i);
+    document.getElementById("outputAnspruch").innerHTML = getClaim(i);
+    document.getElementById("outputBesAnspruch").innerHTML = getSpecialClaim(i);
+    document.getElementById("outputboden").innerHTML = getSoilType(i);
+    document.getElementById("headerPic").style.backgroundImage = "url(" + getLink(i) + ")";
     //document.body.style.backgroundImage = getLink(i); 
     document.getElementById("popUp").style.display = "block";
 
-    document.getElementById("container").style.display = "none";
+    closeCards();
 
     document.getElementById("head").style.display = "none";
 }
 function shutpopup() {
 
     console.log("s");
-    document.getElementById("head").style.display = "flex";
+    document.getElementById("head").style.display = "block";
     document.getElementById("container").style.display = "flex";
     document.getElementById("popUp").style.display = "none";
+openCards(); 
+
+}
+function searchFor(input) {
+    var value = input.value;
+    console.log(ress.tipps.length);
+    console.log(value);
+    console.log(ress.tipps[0].name.toLowerCase().includes(value.toLowerCase()))
+    //document.getElementById("container").style.display = "none";
+    // closeCards();
+
+    for (var i = 0; i < ress.tipps.length - 1; i++) {
+        console.log(i);
+
+        if (ress.tipps[i].name.toLowerCase().includes(value.toLowerCase())) {
+            console.log("anzeigen");
+            document.getElementById("card"+i).style.display = "flex";
+
+        } else {
+            console.log(" nichtanzeigen");
+            document.getElementById("card"+i).style.display = "none";
+         }
+    }
+
+}
+
+function openCards() {
+    for (var i = 0; i < ress.tipps.length - 1; i++) {
+
+        document.getElementById("card" + i).style.display = "block";
+
+    }
+
+
+
+
+}
+
+function closeCards() {
+    for (var i = 0; i < ress.tipps.length - 1; i++) {
+
+        document.getElementById("card" + i).style.display = "none";
+
+    }
+
+
 
 
 }
