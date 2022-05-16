@@ -25,7 +25,7 @@ var pool = mysql.createPool({
     password: "benni0501",
     database: "webthings"
 });
-
+getNewData();
 function sendDataToClient(){
 	wss.clients.forEach((con) => {
         con.send(JSON.stringify(dataCache));
@@ -43,6 +43,7 @@ function sendDatatoOneClient(ws){
 }
 
 function getNewData(){
+    console.log("getNewData");
     var tipps = {};
     var sensors = {};
     pool.getConnection(function(err,conn){
@@ -109,7 +110,4 @@ client.on('connect', () => {
 
 console.log("Trying to start server");
 // Server Start
-server.listen(3001, () => {
-    console.log("server started successfully");
-    getNewData();
-});
+server.listen(3001, () => console.log("server started successfully"));
