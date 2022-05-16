@@ -6,6 +6,8 @@ const mysql = require('mysql');
 const https = require('https');
 const fs = require('fs');
 const MySQLEvents = require("@rodrigogs/mysql-events");
+var dataCache = {};
+var dataCacheSensors = {};
 //console.log(clientId);
 
 // Server erstellen und WebSocket zuweisen
@@ -24,95 +26,39 @@ var pool = mysql.createPool({
     database: "webthings"
 });
 
-const instance = new MySQLEvents(pool, {
-    startAtEnd: true,
-    excludedSchemas: {
-      mysql: true,
-    },
-});
-
 function sendDataToClient(){
-	var sensors = {};
-	var tipps = {};
-	pool.getConnection(function(err,conn){
-        conn.query('SELECT * FROM webthings', function(error,results, fields){
-            if(error) throw error;
-	    	results.forEach((res)=>{
-                        let yaman = res.webthings_id.split('/');
-                        //console.log(yaman[0]);
-                        //console.log(yaman[0].substring(34));
-                        res.webthings_id = yaman[0].substring(34);
-                });
-		    sensors = results;
-		    //console.log(sensors);
-	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
-		     if(error) throw error;
-                     tipps = results;
-                     var retVal = {"tipps":tipps, "sensors":sensors};
-            	     wss.clients.forEach((con)=>{
-                         con.send(JSON.stringify(retVal));
-                     });
-	        });
-	    });
-            conn.release();
-        });
+	wss.clients.forEach((con) => {
+        con.send(JSON.stringify(dataCache));
+    });
 }
 
 function sendSensorDataToClient(){
-	pool.getConnection(function(err,conn){
-            conn.query('SELECT * FROM webthings', function(error,results, fields){
-                if(error) throw error;
- 		        results.forEach((res)=>{
-                	let yaman = res.webthings_id.split('/');
-			//console.log(yaman[0]);
-			//console.log(yaman[0].substring(34));
-                        res.webthings_id = yaman[0].substring(34);
-                });
-                //console.log(results);
-		var retVal = {"tipps":null,"sensors":results};
-                wss.clients.forEach((con)=>{
-                    con.send(JSON.stringify(retVal));
-                });
-            });
-            conn.release();
-        });
+	wss.clients.forEach((con)=>{
+        con.send(JSON.stringify(dataCacheSensors));
+    });
 }
 
 function sendDatatoOneClient(ws){
-    var sensors = {};
-	var tipps = {};
-	pool.getConnection(function(err,conn){
-            conn.query('SELECT * FROM webthings', function(error,results, fields){
-                if(error) throw error;
-		results.forEach((res)=>{
-                        let yaman = res.webthings_id.split('/');
-                        //console.log(yaman[0]);
-                        //console.log(yaman[0].substring(34));
-                        res.webthings_id = yaman[0].substring(34);
-                });
-		sensors = results;
-		//console.log(sensors);
-	    	conn.query('SELECT * FROM gartentipps', function(error,results, fields){
-		     if(error) throw error;
-                     tipps = results;
-                     var retVal = {"tipps":tipps, "sensors":sensors};
-            	     ws.send(JSON.stringify(retVal));
-	        });
-	    });
-            conn.release();
-        });
+    ws.send(dataCache);
 }
 
-instance.start();
-
-instance.addTrigger({
-    name: 'TEST',
-    expression: '*',
-    statement: MySQLEvents.STATEMENTS.ALL,
-    onEvent: (event) => { // You will receive the events here
-	sendDataToClient();
-    },
-  });
+function getNewData(){
+    var tipps = {};
+    var sensors = {};
+    pool.getConnection(function(err,conn){
+        conn.query('SELECT * FROM gartentipps', function(err,results){
+            tipps = results;
+            if(err) throw err;
+        });
+        conn.query('SELECT* FROM webthings', function(err,results){
+            sensors = results;
+            if(err) throw err;
+        })
+        conn.release();
+        dataCache = {"tipps":tipps, "sensors":sensors};
+        dataCacheSensors = {"tipps":null, "sensors":sensors};
+    });
+}
 
 // MQTT-Client
 const client = mqtt.connect(connectUrl , {
@@ -152,9 +98,10 @@ client.on('connect', () => {
         //console.log(topic.substring(34,46));
         
         // Get Data from Database and send it to the clients
-	pool.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function (error, results, fields) {
+	    pool.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function (error, results, fields) {
   		if (error) throw error;
   		console.log('The solution is: ', results[0].solution);
+        getNewData();
 		sendSensorDataToClient();
 	});
      })
@@ -162,4 +109,7 @@ client.on('connect', () => {
 
 console.log("Trying to start server");
 // Server Start
-server.listen(3001, () => console.log("server started successfully"));
+server.listen(3001, () => {
+    console.log("server started successfully");
+    getNewData();
+});
