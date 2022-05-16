@@ -39,6 +39,7 @@ function sendSensorDataToClient(){
 }
 
 function sendDatatoOneClient(ws){
+    console.log(dataCache)
     ws.send(JSON.stringify(dataCache));
 }
 
