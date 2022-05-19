@@ -50,12 +50,14 @@ function getNewData(){
             if(err) throw err;
         
             conn.query('SELECT* FROM webthings', function(err,results){
-                sensors = results;
                 if(err) throw err;
-                let yaman = res.webthings_id.split('/');
+                results.forEach((res)=>{
+                    let yaman = res.webthings_id.split('/');
                     //console.log(yaman[0]);
                     //console.log(yaman[0].substring(34));
                     res.webthings_id = yaman[0].substring(34);
+                });
+                sensors = results;
                 dataCache = {"tipps":tipps, "sensors":sensors};
                 dataCacheSensors = {"tipps":null, "sensors":sensors};
             });
