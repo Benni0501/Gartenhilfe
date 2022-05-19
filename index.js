@@ -38,18 +38,6 @@ function sendSensorDataToClient(){
     });
 }
 
-function sendDataToClient(){
-	wss.clients.forEach((con) => {
-        con.send(JSON.stringify(dataCache));
-    });
-}
-
-function sendSensorDataToClient(){
-	wss.clients.forEach((con)=>{
-        con.send(JSON.stringify(dataCacheSensors));
-    });
-}
-
 function sendDatatoOneClient(ws){
     ws.send(JSON.stringify(dataCache));
 }
