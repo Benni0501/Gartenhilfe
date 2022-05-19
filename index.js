@@ -25,6 +25,18 @@ var pool = mysql.createPool({
     password: "benni0501",
     database: "webthings"
 });
+getNewData();
+function sendDataToClient(){
+	wss.clients.forEach((con) => {
+        con.send(JSON.stringify(dataCache));
+    });
+}
+
+function sendSensorDataToClient(){
+	wss.clients.forEach((con)=>{
+        con.send(JSON.stringify(dataCacheSensors));
+    });
+}
 
 function sendDataToClient(){
 	wss.clients.forEach((con) => {
@@ -39,7 +51,7 @@ function sendSensorDataToClient(){
 }
 
 function sendDatatoOneClient(ws){
-    ws.send(dataCache);
+    ws.send(JSON.stringify(dataCache));
 }
 
 function getNewData(){
@@ -49,14 +61,15 @@ function getNewData(){
         conn.query('SELECT * FROM gartentipps', function(err,results){
             tipps = results;
             if(err) throw err;
+        
+            conn.query('SELECT* FROM webthings', function(err,results){
+                sensors = results;
+                if(err) throw err;
+                dataCache = {"tipps":tipps, "sensors":sensors};
+                dataCacheSensors = {"tipps":null, "sensors":sensors};
+            });
         });
-        conn.query('SELECT* FROM webthings', function(err,results){
-            sensors = results;
-            if(err) throw err;
-        })
         conn.release();
-        dataCache = {"tipps":tipps, "sensors":sensors};
-        dataCacheSensors = {"tipps":null, "sensors":sensors};
     });
 }
 
