@@ -5,7 +5,6 @@ const connectUrl = 'mqtts://127.0.0.1:8883'
 const mysql = require('mysql');
 const https = require('https');
 const fs = require('fs');
-const MySQLEvents = require("@rodrigogs/mysql-events");
 var dataCache = {};
 var dataCacheSensors = {};
 //console.log(clientId);
