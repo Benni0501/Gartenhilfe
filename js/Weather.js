@@ -30,46 +30,47 @@ function showPosition(position) {
     console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
     userlatitude = position.coords.latitude;
     userlongitude = position.coords.longitude;
-    getLocName();
-    Sleep(100);
-    getStatus();
+    getLocName()
+        .then(() => {
+            getStatus()
+                .then(() => {
+                    setValuesinHTML();
+                });
+        });
 
 }
 
 
-function getLocName() {
+async function getLocName() {
     //json objekt
-    $.get(" https://api.openweathermap.org/data/2.5/weather?lat=" + userlatitude + "&lon=" + userlongitude + "&appid=" + apikey + "&units=metric&lang=de", function (data) {
-        try {
-            currentdata = data;
+    return new Promise((resolve,reject) => {
+        $.get(" https://api.openweathermap.org/data/2.5/weather?lat=" + userlatitude + "&lon=" + userlongitude + "&appid=" + apikey + "&units=metric&lang=de", function (data) {
             console.log(currentdata);
-        } catch (err) {
-            console.log("Error currentdata");
-        }
-    }).fail(function (data, xhr) {
-        console.log("Fail: " + xhr);
-    }).done(function () {
-        console.log("done");
+        }).fail(function (data, xhr) {
+            console.log("Fail: " + xhr);
+            reject(xhr);
+        }).done(function (data) {
+            console.log("done");
+            currentdata = data;
+            resolve();
+        })
     })
+    
 }
 
-function getStatus() {
-    $.get(" https://api.openweathermap.org/data/2.5/onecall?lat=" + userlatitude + "&lon=" + userlongitude + "&exclude=alerts,minutely,hourly&appid=" + apikey + "&units=metric&lang=de", function (data) {
-        try {
-
-            daten = data;
+async function getStatus() {
+    return new Promise((resolve,reject) => {
+        $.get(" https://api.openweathermap.org/data/2.5/onecall?lat=" + userlatitude + "&lon=" + userlongitude + "&exclude=alerts,minutely,hourly&appid=" + apikey + "&units=metric&lang=de", function (data) {
             console.log(daten);
-        } catch (err) {
-            console.log("Error");
-        }
-        setValuesinHTML();
-    }).fail(function (data, xhr) {
-        console.log("Fail: " + xhr);
-    }).done(function () {
-        console.log("forecastdone");
+        }).fail(function (data, xhr) {
+            console.log("Fail: " + xhr);
+            reject(xhr);
+        }).done(function (data) {
+            console.log("forecastdone");
+            daten = data;
+            resolve();
+        })
     })
-
-
 }
 
 function setValuesinHTML() {
