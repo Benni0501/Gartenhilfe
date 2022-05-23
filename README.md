@@ -6,7 +6,7 @@ Dies hier ist das Backend für unsere Website
 ## Erklärung
 Frontend und Backend kommunizieren mithilfe eines Websockets
 
-Um dies zu machen benutzen wir serverseitig Express.js.<br>
+Um dies zu machen benutzen wir serverseitig Node.js.<br>
 Die Daten werden auf einer MariaDB Datenbak gespeichert.<br>
 
 Wenn möglich sollten wir dieses JSON-Format beim Senden/Empfangen einhalten:
