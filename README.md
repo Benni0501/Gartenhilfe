@@ -13,5 +13,6 @@ Auf dieser Seite kann man folgendes sehen:
 - Sensoren
 - Wetter
 - Tipps
+- Anleitung
 
 <br>Es gibt auch eine kleines Easter-Egg
