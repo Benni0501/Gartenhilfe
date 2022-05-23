@@ -24,23 +24,25 @@ var pool = mysql.createPool({
     password: "benni0501",
     database: "webthings"
 });
-getNewData();
+
+// Alle Daten zu allen Clients senden
 function sendDataToClient(){
 	wss.clients.forEach((con) => {
         con.send(JSON.stringify(dataCache));
     });
 }
-
+// Nur Sensordaten zu allen Clients zu senden
 function sendSensorDataToClient(){
 	wss.clients.forEach((con)=>{
         con.send(JSON.stringify(dataCacheSensors));
     });
 }
-
+// alle Daten zu einem Client zu senden
 function sendDatatoOneClient(ws){
     ws.send(JSON.stringify(dataCache));
 }
 
+// neue Daten von Datenbank holen
 function getNewData(){
     var tipps = {};
     var sensors = {};
