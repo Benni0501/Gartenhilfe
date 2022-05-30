@@ -47,11 +47,12 @@ function getNewData(){
     var tipps = {};
     var sensors = {};
     pool.getConnection(function(err,conn){
+        if(err) console.error(err);
         conn.query('SELECT * FROM gartentipps', function(err,results){
             tipps = results;
-            if(err) throw err;
+            if(err) console.error(err.message);
             conn.query('SELECT* FROM webthings', function(err,results){
-                if(err) throw err;
+                if(err) console.error(err.message);
                 results.forEach((res)=>{
                     let yaman = res.webthings_id.split('/');
                     res.webthings_id = yaman[0].substring(34);
@@ -104,14 +105,13 @@ client.on('connect', () => {
         
         // Get Data from Database and send it to the clients
 	    pool.query('UPDATE webthings SET value=? WHERE webthings_id=?',[payload.toString(),topic], function (error, results, fields) {
-  		if (error) throw error;
+  		if (error) console.error(error.message);
   		console.log('The solution is: ', results[0].solution);
         getNewData();
 		sendSensorDataToClient();
 	});
      })
 })
-
 console.log("Trying to start server");
 // Server Start
 server.listen(3001, () => {
