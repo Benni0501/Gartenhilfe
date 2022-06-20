@@ -101,6 +101,12 @@ openCards();
 
 }
 function searchFor(input) {
+if(input.value =="türkei"){
+console.log("türkei activated ");
+location.replace("./nvs1.html")
+
+}else{
+
     var value = input.value;
     console.log(ress.tipps.length);
     console.log(value);
@@ -116,17 +122,17 @@ function searchFor(input) {
             document.getElementById("card"+i).style.display = "flex";
 
         } else {
-            console.log(" nichtanzeigen");
+            console.log("nichtanzeigen");
             document.getElementById("card"+i).style.display = "none";
          }
     }
-
+}
 }
 
 function openCards() {
     for (var i = 0; i < ress.tipps.length - 1; i++) {
 
-        document.getElementById("card" + i).style.display = "block";
+        document.getElementById("card" + i).style.display = "flex";
 
     }
 
