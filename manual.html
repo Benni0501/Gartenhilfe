@@ -1,0 +1,101 @@
+<!Doctype HTML>
+<html>
+
+<head>
+    <title>Gartenhilfe</title>
+    <script src="https://code.highcharts.com/highcharts.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="./styles/manual.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+
+
+
+</head>
+
+
+<body>
+    <div id="mySidenav" class="sidenav">
+        <p class="logo" id="defaultcursor">Gartenhilfe</p>
+        <ul style="list-style: none">
+
+            <li> <a id="aktiv" href="./Weather.html" class="icon-b"><i
+                        class="fas fa-temperature-low"></i>&nbsp;&nbsp;Sensoren</a>
+            </li>
+            <li> <a id="aktiv" href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
+            </li>
+            <li> <a id="aktiv" href="./tipps.html" class="icon-b"><i class="fas fa-seedling"></i>&nbsp;&nbsp;Tipps</a>
+            </li>
+            <li> <a id="aktiv" href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-a"><i
+                        class="fas fa-book"></i>&nbsp;&nbsp;Anleitung</a>
+            </li>
+
+        </ul>
+    </div>
+    <div id="main" class="main">
+
+
+        <div class="pages" id="pageOne" onmousewheel="scrollToDiv(1)">
+            <span id="defaultcursor" class="nav manualHeader">Anleitung</span>
+            <div class="textandpic">
+                <div class="textBox">
+                    <h1>Hier finden Sie die relevantesten Informationen, die Ihnen die Bedienung der Gartenhilfe
+                        bestmöglich
+                        erleichtern.</h1>
+
+
+                </div>
+                <img class="sensorpic" src="/png/manualPic.png" alt="">
+
+            </div>
+        </div>
+        
+        <div class="pages" id="pageTwo" onmouseover="scrollToDiv(2)">
+            <span id="defaultcursor" class="nav manualHeader">Sensoren</span>
+            <div class="textandpic">
+                <div class="textBox">
+                    <h1>In diesem Reiter bekommen Sie die Möglichkeit, ausgelesene Daten Ihrer Sensoren anzeigen lassen
+                        zu
+                        können. Dementsprechend werden auch die passenden Einheiten dazu angezeigt.</h1>
+                </div>
+                <img class="sensorpic" src="/png/sensorPic.png" alt="">
+            </div>
+        </div>
+   
+        <div class="pages" id="pageThree" onmouseover="scrollToDiv(3)">
+            <span id="defaultcursor" class="nav manualHeader">Wetter</span>
+
+            <div class="textandpic">
+                <div class="textBox">
+                    <h1>Mit Hilfe unserer implementierten Wetter-API ist es Ihnen jederzeit möglich, aktuellste und
+                        genaueste
+                        Wetterinformationen Ihres Standorts abzurufen. Sie können ebenso das prognostizierte Wetter der
+                        kommenden Tage so ganz komfortabel abrufen.</h1>
+                </div>
+                <img class="wetterpic" src="/png/WetterPic.png" alt="">
+            </div>
+        </div>
+  
+        <div class="pages" id="pageFour" onmouseover="scrollToDiv(4)">
+            <span id="defaultcursor" class="nav manualHeader">Tipps</span>
+            <div class="textandpic">
+                <div class="textBox">
+                    <h1>Hier finden Sie eine riesige Auswahl an verschiedenen Pflanzenarten und Beispielbildern zu
+                        diesen
+                        Pflanzen. Nachdem Sie eine Pflanze ausgewählt haben, werden Ihnen die wichtigsten Ansprüche der
+                        jeweiligen Pflanze angezeigt.</h1>
+                </div>
+                <img class="tippspic" src="/png/TippsPic.png" alt="">
+            </div>
+
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript" src="./js/manual.js"></script>
+
+</body>
+
+
+</html>

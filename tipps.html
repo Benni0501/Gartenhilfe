@@ -27,10 +27,12 @@
             </li>
             <li> <a id="aktiv" href="./Weather.html" class="icon-b"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Wetter</a>
             </li>
+
             <li> <a id="aktiv" href="#" style=" color: #f1f1f1; background: rgb(54, 54, 54);" class="icon-b"><i
                         class="fas fa-seedling"></i>&nbsp;&nbsp;Tipps</a>
             </li>
-
+            <li> <a id="aktiv" href="./manual.html" class="icon-b"><i class="fas fa-book"></i>&nbsp;&nbsp;Anleitung</a>
+            </li>
 
         </ul>
     </div>
@@ -48,7 +50,7 @@
 
                 <h1>Name:</h1>
                 <h2 style="margin-left: 100px;" id="outputName">bspname</h2>
-                <h2>Näherstoffanspruch:</h2>
+                <h2>Nährstoffanspruch:</h2>
                 <h3 style="margin-left: 100px;" id="outputAnspruch">bspname</h3>
 
                 <h2>Besondere Pflanzenansprüche:</h2>
@@ -63,40 +65,25 @@
             <div class="col-div-6">
                 <span id="defaultcursor" style="font-size:40px;cursor:default; text-align: center; color: white;"
                     class="nav">Tipps</span>
-                <input style="  width:25 %;
-                    padding: 12px 20px;
-                    margin-top:8px;
-                    float:right;
-                    box-sizing: border-box;" onchange="searchFor(this)" type="text" name="" id="">
+                <input
+                    style="width:25%;margin-right: 5vw;padding : 12px 20px; margin-top: 8px; float:right;box-sizing: border-box;"
+                    onchange="searchFor(this)" autocomplete="off" placeholder="Search" type="text" name="search" id="">
             </div>
-
         </div>
-
         <div class="clearfix"></div>
         <br />
-
         <div class="clearfix"></div>
-        <br /><br />
+        <br />
+        <br />
         <div class="col-div-10" id="sensorsDiv">
-
-
-
             <div class="container" id="container">
 
-
             </div>
-
-
-
-
         </div>
 
         <div class="clearfix"></div>
     </div>
-
     <script language="javascript" type="text/javascript" src="./js/tipps.js"></script>
-
-
 </body>
 
 
