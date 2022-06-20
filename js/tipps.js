@@ -101,7 +101,7 @@ openCards();
 
 }
 function searchFor(input) {
-if(input.value =="türkei"){
+if(input.value =="#türkei"){
 console.log("türkei activated ");
 location.replace("./nvs1.html")
 
