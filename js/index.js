@@ -23,6 +23,7 @@ socket.onmessage = (event) => {
     var res = JSON.parse(event.data);
     var differentSensors = [];
     lightValue = [];
+    console.log(res);
     moistyValue = [];
     tempValue = [];
     differentSensors.push(res.sensors[0].webthings_id)
@@ -119,9 +120,6 @@ socket.onmessage = (event) => {
            }
        }*/
 };
-function egg() {
-    location.replace("./nvs1.html")
-}
 
 function addDevices(i, j) {
 
