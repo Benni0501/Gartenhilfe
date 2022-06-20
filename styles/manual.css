@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+* {
+    padding: 0;
+
+}
+
+html {
+    scroll-behavior: smooth;
+
+
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background: rgb(54, 54, 54);
+    overflow-y: scroll;
+    font-family: system-ui;
+
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.container {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 100px;
+
+
+}
+
+.manualHeader {
+
+    margin-left: 2vw;
+    margin-top: 2vh;
+    font-size: 40px;
+    cursor: default;
+    color: white;
+
+
+}
+
+h1 {
+    color: whitesmoke;
+}
+
+.pages {
+
+    height: 100vh;
+    box-shadow: #f2f2f2;
+}
+
+.textandpic {
+
+    text-align-last: center;
+}
+
+
+.textBox {
+    text-align: center;
+    margin-top: 200px;
+    height: 20vh;
+
+}
+
+img {
+    height: 500px;
+    margin-top: 2vh;
+}
+
+/*ab 1200px breite bilder kleiner machen nur handy
+*/
+/*ab 870px breite bilder kleiner machne nur mac und macbook
+*/
+@media screen and (max-width: 1200px) {
+    .wetterpic {
+        height: 250px;
+        margin-top: 250px;
+
+    }
+
+}
+
+@media screen and (max-width: 870px) {
+    .tippspic {
+        height: 1px;
+
+    }
+
+    .sensorPic {
+        height: 1px;
+
+    }
+}
+
+.container .card {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 20px;
+    margin-right: 100px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .card .content {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.container .card:hover .content {
+    opacity: 1;
+}
+
+.container .card .content .diagram {
+    font-family: 'Roboto', sans-serif;
+    z-index: 51;
+    position: relative;
+    align-content: center;
+    width: 300px;
+    height: 150px;
+
+    overflow: hidden;
+    /* border: 10px solid rgba(0, 0, 0, 0.25);
+*/
+}
+
+
+.container .card .content .contentBx h3 {
+    font-family: 'Roboto', sans-serif;
+    color: whitesmoke;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0 10px;
+    line-height: 1.1em;
+}
+
+.container .card .content .contentBx h3 span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: initial;
+
+}
+
+.clearfix {
+    clear: both;
+}
+
+.logo {
+    margin: 0px;
+    margin-left: 28px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 36px;
+}
+
+
+
+.sidenav a #aktiv:hover {
+    color: #f1f1f1;
+    background-color: #2f3136;
+}
+
+#defaultcursor {
+    cursor: default;
+}
+
+
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+    margin-left: 300px;
+
+
+
+}
+
+
+
+.head {
+    padding: 20px;
+}
+
+@media screen and (min-width: 1608) {
+    body {
+        overflow: hidden;
+
+    }
+}
+
+
+
+
+
+
+@media screen and (min-width: 750px) and (min-device-width: 750px) {
+
+    .sidenav {
+        position: fixed;
+        height: 100%;
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background: #23272A;
+        overflow: hidden;
+        transition: 0.5s;
+        padding-top: 30px;
+        position: fixed;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+    }
+
+    .deviceHeader {
+        margin-right: 100px;
+
+
+    }
+
+    .sidenav a {
+        padding: 15px 8px 15px 32px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 300px;
+
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background: #23272A;
+        overflow: hidden;
+        transition: 0.5s;
+        padding-top: 30px;
+        right: 25px;
+        font-size: 36px;
+    }
+
+    .sidenav a {
+
+        display: block;
+        padding: 15px 8px 15px 32px;
+
+    }
+
+}
+
+
+@media screen and (max-width: 750px) {
+
+    .container .card {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .col-div-6 {
+        width: 100%;
+        float: left;
+    }
+
+    .nav {
+
+        margin-right: 00px;
+
+
+    }
+
+    .box-4 {
+        /*width: 95%;*/
+        width: 85%;
+        margin-top: 50px;
+        margin-left: 50px;
+        background: #23272A;
+        height: 366.666px;
+        padding: 10px;
+    }
+
+    .deviceHeader {
+        margin-right: 0px;
+
+
+    }
+
+    .box1 {
+        margin-top: 50px;
+    }
+
+    .box2 {
+        margin-top: 50px;
+    }
+
+    .box3 {
+        margin-top: 50px;
+    }
+
+    #main {
+
+        margin-left: 0px;
+    }
+
+    .sidenav {
+        background-color: #23272A;
+        font-size: 36px;
+    }
+
+    .sidenav a {
+        align-content: center;
+        padding-left: 13vw;
+        padding-right: 13vw;
+
+
+    }
+
+
+    .logo {
+
+        text-align: center;
+
+    }
+
+    .sidenav {
+        overflow: hidden;
+        background: #23272A;
+    }
+
+    .sidenav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        text-decoration: none;
+        font-size: 17px;
+        width: 24vw;
+    }
+
+
+
+    .head {
+
+        text-align: center;
+
+    }
+
+
+
+}
+
+
+
+@media screen and (max-device-width: 750px) {
+    #main {
+
+        margin-left: 0px;
+    }
+
+    .col-div-6 {
+        width: 100%;
+        float: left;
+    }
+
+    .deviceHeader {
+        margin-right: 0px;
+
+
+    }
+
+    .span {
+        margin-right: 0;
+    }
+
+    .box-4 {
+        /*width: 95%;*/
+        width: 85%;
+        margin-top: 50px;
+        margin-left: 50px;
+        background: #23272A;
+        height: 366.666px;
+        padding: 10px;
+    }
+
+    .box1 {
+        margin-top: 50px;
+    }
+
+    .box2 {
+        margin-top: 50px;
+    }
+
+    .box3 {
+        margin-top: 50px;
+    }
+
+
+    .logo {
+
+        text-align: center;
+
+    }
+
+    .sidenav a {
+        align-content: center;
+        padding-left: 13vw;
+        padding-right: 13vw;
+
+
+    }
+
+    .sidenav {
+        overflow: hidden;
+        background: #23272A;
+    }
+
+    .sidenav a {
+        background-color: #23272A;
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        text-decoration: none;
+        font-size: 17px;
+        width: 24vw;
+    }
+
+
+
+    .head {
+
+        text-align: center;
+
+    }
+
+}
