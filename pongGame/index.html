@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Pong</title>
+  </head>
+  <body style="text-align: center">
+    <canvas id="unity-canvas" width=1060 height=700 style="width: 95vw; height: 95vh; margin-top: 2vh; background: #231F20"></canvas>
+    <script src="Build/Pong_Web.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/Pong_Web.data",
+        frameworkUrl: "Build/Pong_Web.framework.js",
+        codeUrl: "Build/Pong_Web.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "BigBoyBenzen Inc.",
+        productName: "Pong",
+        productVersion: "1.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+    </script>
+  </body>
+</html>
