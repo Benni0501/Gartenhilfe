@@ -97,36 +97,38 @@ function shutpopup() {
     document.getElementById("head").style.display = "block";
     document.getElementById("container").style.display = "flex";
     document.getElementById("popUp").style.display = "none";
-openCards(); 
+    openCards();
 
 }
 function searchFor(input) {
-if(input.value =="#türkei"){
-console.log("türkei activated ");
-location.replace("./nvs1.html")
+    if (input.value == "#türkei") {
+        console.log("#türkei activated ");
+        location.replace("./nvs1.html")
 
-}else{
+    } else if(input.value =="#bong"){
+        location.replace("./pongGame/index.html")
+    }else {
 
-    var value = input.value;
-    console.log(ress.tipps.length);
-    console.log(value);
-    console.log(ress.tipps[0].name.toLowerCase().includes(value.toLowerCase()))
-    //document.getElementById("container").style.display = "none";
-    // closeCards();
+        var value = input.value;
+        console.log(ress.tipps.length);
+        console.log(value);
+        console.log(ress.tipps[0].name.toLowerCase().includes(value.toLowerCase()))
+        //document.getElementById("container").style.display = "none";
+        // closeCards();
 
-    for (var i = 0; i < ress.tipps.length - 1; i++) {
-        console.log(i);
+        for (var i = 0; i < ress.tipps.length - 1; i++) {
+            console.log(i);
 
-        if (ress.tipps[i].name.toLowerCase().includes(value.toLowerCase())) {
-            console.log("anzeigen");
-            document.getElementById("card"+i).style.display = "flex";
+            if (ress.tipps[i].name.toLowerCase().includes(value.toLowerCase())) {
+                console.log("anzeigen");
+                document.getElementById("card" + i).style.display = "flex";
 
-        } else {
-            console.log("nichtanzeigen");
-            document.getElementById("card"+i).style.display = "none";
-         }
+            } else {
+                console.log("nichtanzeigen");
+                document.getElementById("card" + i).style.display = "none";
+            }
+        }
     }
-}
 }
 
 function openCards() {
