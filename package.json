@@ -29,6 +29,7 @@
     "mysql": "^2.18.1",
     "on-finished": "^2.3.0",
     "packet": "0.0.7",
+    "permessage-deflate": "^0.1.7",
     "raw-body": "^2.4.2",
     "sqlstring": "^2.3.2",
     "stream": "0.0.2",

@@ -5,6 +5,11 @@ const connectUrl = 'mqtts://127.0.0.1:8883'
 const mysql = require('mysql');
 const https = require('https');
 const fs = require('fs');
+var Extensions = require('websocket-extensions'),
+    deflate    = require('permessage-deflate');
+
+var exts = new Extensions();
+exts.add(deflate);
 var dataCache = {};
 var dataCacheSensors = {};
 //console.log(clientId);
